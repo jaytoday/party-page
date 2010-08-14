@@ -13,6 +13,8 @@ background: -webkit-gradient(linear, left top, right top, from(rgba(179, 179, 17
 -webkit-transition-property: right;
 }
 
+/* this is a comment in the css */
+
 
 #chat_wrapper{
 position:absolute;
