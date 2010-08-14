@@ -1,0 +1,61 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:style>
+		/** Example rules used by the template application (remove for your app) */
+		h1 {
+			font-size: 2em;
+			font-weight: bold;
+			color: #777777;
+			margin: 40px 0px 70px;
+			text-align: center;
+		}
+		
+		.sendButton {
+			display: block;
+			font-size: 16pt;
+		}
+		
+		/** Most GWT widgets already have a style name defined */
+		.gwt-DialogBox {
+			width: 400px;
+		}
+		
+		.dialogVPanel {
+			margin: 5px;
+		}
+		
+		.serverResponseLabelError {
+			color: red;
+		}
+		
+		/** Set ids using widget.getElement().setId("idOfElement") */
+		#closeButton {
+			margin: 15px 6px 6px;
+			float: right;
+		}
+	</ui:style>
+
+	<g:DialogBox ui:field='dialog' animationEnabled='true'
+		autoHide='true' modal='true'>
+
+		<g:caption>
+			<b>Remote Procedure Call</b>
+		</g:caption>
+
+		<g:VerticalPanel ui:field='verticalPanel' styleName='{style.dialogVPanel}'>
+			<g:HTML>
+				<b>Sending name to the server:</b>
+			</g:HTML>
+			<g:Label ui:field='textToServerLabel' />
+			<g:HTML>
+				<br />
+				<b>Server replies:</b>
+			</g:HTML>
+			<g:HTML ui:field='serverResponseLabel' />
+			<g:Button ui:field='closeButton' text='Close' />
+
+		</g:VerticalPanel>
+	</g:DialogBox>
+</ui:UiBinder>
