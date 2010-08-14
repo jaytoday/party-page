@@ -140,12 +140,19 @@ h2{
 .chat .content{
 	display:inline;
 }
-.chat
-{
-	display: block;
-	border: solid 1px #999;
-}
+.chat{
+    font-size:12px;
+    line-height:1.5em;
+    padding:1px 1px 1px 1px;
+    margin:0 0 2px 0;
+    width: 100%;    
+    min-height:70px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CAD5EB), to(#E8EDFF));
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 0 5px 5px -3px black;
+} 
 iframe
 {
 	border: none;
 }
+
