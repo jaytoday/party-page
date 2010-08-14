@@ -165,7 +165,6 @@ class EditUserProfileHandler(BaseRequestHandler):
 
     user.picture = self.request.get('user_picture')
     user.website = self.request.get('user_website')
-    user.seated = self.request.get('user_seated')
     user.put()
 
 
