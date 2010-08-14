@@ -8,15 +8,15 @@
   </head>                                                                                     
   <body onload="" style="background: #ddd;">
   <div class="wrapper">
-    <script type="text/javascript" id="party_time">
-	var s = document.getElementById("party_time");
-	var url = location.href;
-	var us = "{{ SERVER_HOST }}/party-page-js?gowith=" + encodeURIComponent(url);
-	var ns = document.createElement("script");
-	ns.src = us;
-	ns.type = "text/javascript";
-	s.parentElement.appendChild(ns);
-    </script>
+	    <script type="text/javascript" id="party_time">
+		var s = document.getElementById("party_time");
+		var url = location.href;
+		var us = "{{ SERVER_HOST }}/party-page-js?gowith=" + encodeURIComponent(url);
+		var ns = document.createElement("script");
+		ns.src = us;
+		ns.type = "text/javascript";
+		s.parentElement.appendChild(ns);
+	    </script>
   </div>  
   </body>
 </html>

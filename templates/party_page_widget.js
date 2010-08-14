@@ -1,44 +1,8 @@
+{% include "jquery.js" %}
 
 var jQueryScriptOutputted = false;
 
 $partyPage = {
-    
-    initJQuery: function (){
-
-        //if the jQuery object isn't available
-        if (typeof(jQuery) == 'undefined') {
-    
-            if (!jQueryScriptOutputted) {
-                //only output the script once..
-                jQueryScriptOutputted = true;
-            
-                //output the script (load it from google api)
-                document.write('<script type="text/javascript"'
-                + ' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js">'
-                + '</script>');
-            }else{
-                jQuery.noConflict();		    
-	    }
-            setTimeout("$partyPage.initJQuery()", 50);
-        } else {
-             
-              jQuery(document).ready(function(){
-                // Code that uses jQuery's $ can follow here.
-                $partyPage.init(); 
-              });
-                                  
-        }
-            
-    },
-
-// inject quiz css into the document head
-    loadStyles: function(){
-        var widgetStyles = '{{ css }}';
-        var style = document.createElement('style');
-        style.rel = "stylesheet"; style.type = "text/css";
-        jQuery(style).html(widgetStyles);
-        jQuery('head').append(style);
-    },
 
     init: function(){
 
@@ -48,11 +12,7 @@ $partyPage = {
         $partyPage.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
         $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}'){
-            var login_url = '{{ login_url }}';
-            var continue_val = getQueryParams(login_url)['continue'];
-            login_url = decodeURIComponent(login_url).replace(continue_val, window.location.href);
-            
-            $partyPage.chatWrapper.html('<div><a href="' + login_url + '">Click Here to Login</a></div>');
+            $partyPage.chatWrapper.html('<div><a href="{{ login_url }}">Click Here to Login</a></div>');
         }else 
             $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='
             + this_url + '"</div>');
@@ -77,11 +37,20 @@ $partyPage = {
 		}, 200);
 		$partyPage.chatIframe.hide();
 	}
-}
+},
+
+// inject quiz css into the document head
+    loadStyles: function(){
+        var widgetStyles = '{{ css }}';
+        var style = document.createElement('style');
+        style.rel = "stylesheet"; style.type = "text/css";
+        jQuery(style).html(widgetStyles);
+        jQuery('head').append(style);
+    },
 
 };
 
-$partyPage.initJQuery();
+$partyPage.init();
 
 
 

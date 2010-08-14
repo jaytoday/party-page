@@ -18,7 +18,6 @@
 		if (status == 'success') {
 		  if ($(CHATS_DIV).html() != chats_el.html()){
 			  $(CHATS_DIV).html(chats_el.html());
-			  scrollToBottom();
 			  highlightUser(CURRENT_USER, CHATS_DIV);
 			  makeLinks(CHATS_DIV);		  
 		  }
