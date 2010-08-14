@@ -43,24 +43,15 @@ $partyPage = {
         $partyPage.chatTab = jQuery('<div id="chat_tab"></div>');
         $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
     
-        /*if ('{{ login_url }}')
-            insertEl = '<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>';
+        if ('{{ login_url }}')
+            $partyPage.chatWrapper.html('<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>');
         else 
-            insertEl = '<div id="party_page_wrapper"><iframe src="{{ SERVER_HOST }}/iframe"</div>';
-
-         jQuery("script", jQuery("body")).each(function() {
-            if (this.src.indexOf('party-page-js') > -1) 
-            jQuery(this).after(insertEl); 
-         } );
-         */
-         
-
+            $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe src="{{ SERVER_HOST }}/iframe"</div>');
              
          jQuery("body").append($partyPage.chatTab);
          jQuery("body").append($partyPage.chatWrapper);
   
-           $partyPage.chatTab.live('click', function(){ 
-             alert('click');
+           $partyPage.chatTab.bind('click', function(){ 
             $partyPage.chatWrapper.animate({ 
                 width: 400
               }, 200 );
