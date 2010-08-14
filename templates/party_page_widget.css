@@ -5,6 +5,11 @@
   src: local('IM Fell Great Primer SC'), url('http://themes.googleusercontent.com/font?kit=A313vRj97hMMGFjt6rgSJuSNO5Eaym6LWE3jyfXmerw') format('truetype');
 }
 
+iframe
+{
+	border: none;
+}
+
 #chat_tab{
 	position:absolute;
 	top: 50%;
@@ -24,7 +29,7 @@
 	-webkit-transition-property: right;
 }
 
-#chat_tab span.inner
+#chat_tab span
 {
 	position: relative;
 	display: block;
@@ -37,7 +42,7 @@
 }
 
 
-#chat_tab span.inner
+#chat_tab span
 {
     font-size: 23px;
     padding:3px;
@@ -48,7 +53,7 @@
 	right: 0px;
 	top: 0px;
 	width: 0px;
-	height: 100%;
+	height: 99%;
 	background-color:rgba(0, 176, 216, 0.1);
 	-webkit-box-shadow: 0px 3px 3px #666;
 }

@@ -130,12 +130,12 @@ class ChatsRequestHandler(BaseRequestHandler):
       if len(chatsList) >= 40:
         chatsList.pop(0)
     chatsList.append(chat)
-    
+    chatsList = chatsList.reverse()
     if not memcache.set(self.MEMCACHE_KEY, pickle.dumps(chatsList)):
         logging.debug("Memcache set failed:")  
 
     template_values = {
-      'chats': chatsList,
+      'chats': chatsList
     }
     
     template = self.generate('chats.html', template_values)

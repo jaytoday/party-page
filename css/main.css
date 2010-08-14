@@ -140,3 +140,7 @@ h2{
 .chat .content{
 	display:inline;
 }
+iframe
+{
+	border: none;
+}
