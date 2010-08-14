@@ -11,20 +11,10 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 from google.appengine.api import memcache
 
+import models
+
 # Set the debug level
 _DEBUG = True
-
-class GreetingUser(db.Model):
-  greeting_user = db.UserProperty()
-  joined = db.DateTimeProperty(auto_now_add=True)
-  picture = db.StringProperty()
-  seated = db.StringProperty()
-  website = db.StringProperty()
-  
-class Greeting(db.Model):
-  author = db.UserProperty()
-  content = db.StringProperty(multiline=True)
-  date = db.DateTimeProperty(auto_now_add=True)
 
 class BaseRequestHandler(webapp.RequestHandler):
   """Base request handler extends webapp.Request handler
@@ -104,38 +94,40 @@ class WidgetJSHandler(MainRequestHandler):
         
 
 class ChatsRequestHandler(BaseRequestHandler):
-  MEMCACHE_KEY = 'greetings'
-  MEMCACHE_TEMPLATE = 'greetings_template'
+  MEMCACHE_KEY = 'chats'
+  MEMCACHE_TEMPLATE = 'chats_template'
   
   def get(self):
     template = memcache.get(self.MEMCACHE_TEMPLATE)
     self.response.out.write(template)
     
   def post(self):
-    greeting = Greeting()
+    chat = models.ChatMessage()
 
     if users.get_current_user():
-      greeting.author = users.get_current_user()
+      chat.author = users.get_current_user()
     
-    greeting.content = self.request.get('content')
-    greeting.put()
+    chat.content = self.request.get('content')
+    chat.put()
     
-    greetingsString = memcache.get(self.MEMCACHE_KEY)
-    if greetingsString is None:
-      greetingsList = []
+    chatsString = memcache.get(self.MEMCACHE_KEY)
+    if chatsString is None:
+      chatsList = []
     else:
-      greetingsList = pickle.loads(greetingsString)
-      if len(greetingsList) >= 40:
-        greetingsList.pop(0)
-    greetingsList.append(greeting)
+      chatsList = pickle.loads(chatsString)
+      if len(chatsList) >= 40:
+        chatsList.pop(0)
+    chatsList.append(chat)
     
-    if not memcache.set(self.MEMCACHE_KEY, pickle.dumps(greetingsList)):
+    if not memcache.set(self.MEMCACHE_KEY, pickle.dumps(chatsList)):
         logging.debug("Memcache set failed:")  
 
     template_values = {
-      'greetings': greetingsList,
+      'chats': chatsList,
     }
+    
     template = self.generate('chats.html', template_values)
+    logging.info(template)
     if not memcache.set(self.MEMCACHE_TEMPLATE, template):
         logging.debug("Memcache set failed:")          
     
@@ -149,32 +141,32 @@ class EditUserProfileHandler(BaseRequestHandler):
   def get(self, user):
     # Get the user information
     unescaped_user = urllib.unquote(user)
-    greeting_user_object = users.User(unescaped_user)
+    user_object = users.User(unescaped_user)
     # Only that user can edit his or her profile
-    if users.get_current_user() != greeting_user_object:
+    if users.get_current_user() != user_object:
       self.redirect('/view/StartPage')
 
-    greeting_user = GreetingUser.gql('WHERE greeting_user = :1', greeting_user_object).get()
-    if not greeting_user:
-      greeting_user = GreetingUser(greeting_user=greeting_user_object)
-      greeting_user.put()
+    user = models.ChatUser.gql('WHERE user = :1', user_object).get()
+    if not user:
+      user = models.ChatUser(user=user_object)
+      user.put()
 
-    self.response.out.write(self.generate('edit_user.html', template_values={'queried_user': greeting_user}))
+    self.response.out.write(self.generate('edit_user.html', template_values={'queried_user': user}))
 
   def post(self, user):
     # Get the user information
     unescaped_user = urllib.unquote(user)
-    greeting_user_object = users.User(unescaped_user)
+    user_object = users.User(unescaped_user)
     # Only that user can edit his or her profile
-    if users.get_current_user() != greeting_user_object:
+    if users.get_current_user() != user_object:
       self.redirect('/')
 
-    greeting_user = GreetingUser.gql('WHERE greeting_user = :1', greeting_user_object).get()
+    user = models.ChatUser.gql('WHERE user = :1', user_object).get()
 
-    greeting_user.picture = self.request.get('user_picture')
-    greeting_user.website = self.request.get('user_website')
-    greeting_user.seated = self.request.get('user_seated')
-    greeting_user.put()
+    user.picture = self.request.get('user_picture')
+    user.website = self.request.get('user_website')
+    user.seated = self.request.get('user_seated')
+    user.put()
 
 
     self.redirect('/user/%s' % user)
@@ -192,11 +184,11 @@ class UserProfileHandler(BaseRequestHandler):
     unescaped_user = urllib.unquote(urllib.unquote(user))
 
     # Query for the user information
-    greeting_user_object = users.User(unescaped_user)
-    greeting_user = GreetingUser.gql('WHERE greeting_user = :1', greeting_user_object).get()
+    user_object = users.User(unescaped_user)
+    user = models.ChatUser.gql('WHERE user = :1', user_object).get()
 
     # Generate the user profile
-    self.response.out.write(self.generate('user.html', template_values={'queried_user': greeting_user}))
+    self.response.out.write(self.generate('user.html', template_values={'queried_user': user}))
 
                                                 
 application = webapp.WSGIApplication(
