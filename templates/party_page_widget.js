@@ -19,14 +19,22 @@ function initJQuery() {
     } else {
                         
         $(function() {  
+            
+                if ('{{ login_url }}')
+                    insertEl = '<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>';
+                else 
+                    insertEl = '<div id="party_page_wrapper"><iframe src="{{ SERVER_HOST }}/iframe"</div>';
 
                 $("script", $("body")).each(function() {
                     if (this.src.indexOf('party-page-js') > -1) 
-                    $(this).after('<div id="party_page_wrapper"><iframe src="{{ SERVER_HOST }}/iframe"</div>'); 
+                    $(this).after(insertEl); 
                  } );
             
         });
     }
             
 }
+
 initJQuery();
+
+    
