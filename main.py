@@ -65,19 +65,7 @@ class BaseRequestHandler(webapp.RequestHandler):
 class MainRequestHandler(BaseRequestHandler):
 
   def get(self):
-    if users.get_current_user():
-      url = users.create_logout_url(self.request.uri)
-      url_linktext = 'Logout'
-    else:
-      url = users.create_login_url(self.request.uri)
-      url_linktext = 'Login'
-
-    template_values = {
-      'url': url,
-      'url_linktext': url_linktext,
-      }
-
-    self.response.out.write(self.generate('index.html', template_values))
+    self.response.out.write(self.generate('index.html'))
     
 class EmbedRequestHandler(MainRequestHandler):
 
@@ -99,7 +87,7 @@ class WidgetJSHandler(MainRequestHandler):
         "css": cssmin.cssmin(self.generate('party_page_widget.css', {})).replace('\n','').replace("'",'"')
     }
     if not users.get_current_user():
-      template_values['login_url'] = users.create_logout_url(self.request.uri).split('continue=')[0]
+      template_values['login_url'] = users.create_login_url(self.request.uri).split('continue=')[0]
     self.response.headers['Content-Type'] = "application/javascript"
     self.response.out.write(self.generate('party_page_widget.js', template_values))
     
@@ -127,10 +115,10 @@ class ChatsRequestHandler(BaseRequestHandler):
       chatsList = []
     else:
       chatsList = pickle.loads(chatsString)
-      if len(chatsList) >= 40:
+      if chatsList and len(chatsList) >= 40:
         chatsList.pop(0)
     chatsList.append(chat)
-    chatsList = chatsList.reverse()
+    chatsList.reverse()
     if not memcache.set(self.MEMCACHE_KEY, pickle.dumps(chatsList)):
         logging.debug("Memcache set failed:")  
 
