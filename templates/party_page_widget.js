@@ -40,7 +40,7 @@ $partyPage = {
 
         $partyPage.loadStyles();
         
-        $partyPage.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
+        $partyPage.chatTab = jQuery('<div id="chat_tab"><span>PARTY</span></div>');
         $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}')
             $partyPage.chatWrapper.html('<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>');
@@ -52,25 +52,21 @@ $partyPage = {
 	$partyPage.chatIframe = jQuery("#chat_iframe");
 	$partyPage.chatIframe.hide();
 	$partyPage.chatTab.toggle(
-	function(){ 
+	    expand,collapse);   
+	function expand(){
 		$(this).animate({marginRight:"400px"}, 200);
 		$partyPage.chatWrapper.animate({ 
 			width: "400px"
 		}, 200);
-		$partyPage.chatIframe.show();
-        }, 
-	function(){
-	    $(this).animate({marginRight:"0px"}, 200);
+		$partyPage.chatIframe.show();		
+	}
+	function collapse(){
+  	        $(this).animate({marginRight:"0px"}, 200);
 		$partyPage.chatWrapper.animate({
 			width:"0px"
 		}, 200);
 		$partyPage.chatIframe.hide();
-	});   
-	
-	$(window).resize(function(){
-	    $partyPage.chatIframe.style("height", "100%");
-	});
-	
+	}
 }
 
 };
