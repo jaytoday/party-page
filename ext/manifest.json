@@ -1,0 +1,31 @@
+{
+	"name": "Party Page Partners",
+	"version": "1.1",
+	"description": "Throw a Party in your Browser!",
+	"icons": 
+	{
+		"32":"party_32.png",
+		"64":"party_64.png",
+		"128":"party_128.png",
+		"256":"party_256.png"
+	},
+	"browser_action": 
+	{
+		"default_icon": "party_64.png",
+		"default_title": "Party Time!"
+	},
+	"background_page": "partybackground.html",
+	"content_scripts": 
+	[
+		{
+			"matches":["http://*/*"],
+			"js":["embed.js"]
+		}
+	],
+	"options_page": "partyoptions.html",
+	"permissions": 
+	[
+		"tabs","http://*/*","https://*/*"
+	],
+	"update_url": "http://party-page.appspot.com/"
+}

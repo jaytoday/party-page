@@ -1,0 +1,9 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			chrome.browserAction.onClicked.addListener(function(tab){
+				chrome.tabs.executeScript(tab.id, {file: "embed.js"});
+			});
+		</script>
+	</head>
+</html>
