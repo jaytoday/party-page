@@ -35,7 +35,7 @@
 		  highlightUser(CURRENT_USER, CHATS_DIV);
 		  makeLinks(CHATS_DIV);
 	    } 
-	    window.setTimeout("updateChat()", 10000);
+	    window.setTimeout("updateChat()", 1000);
 	}
 
 	function setup() {
@@ -57,18 +57,6 @@
   </head>                                                                                     
   <body onload="setup()">
   <div class="wrapper">
-  	{% if user %}
-		<ul id="userbar">
-			<li class="first"><!--// Maybe you can place avatar here //--> Logged in as {{ user.nickname }}</li>
-			<li><a href="/edituser/{{ user.email }}">Edit My Profile</a></li>
-			<li class="last"><a href="{{log_in_out_url}}">Log out</a></li>
-		</ul>
-   	{% else %}
-		<ul id="userbar">
-    		<li class="first last"><a href="{{log_in_out_url}}">Log in</a></li>
-		</ul>
-    {% endif %}
-   
     <div id="chats"></div>
 	
 	<form id="send-chat-form" action="javascript:sendChat();">
@@ -79,5 +67,6 @@
 		</div>
     </form>
   </div>  
+
   </body>
 </html>

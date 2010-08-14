@@ -63,6 +63,7 @@ class BaseRequestHandler(webapp.RequestHandler):
     return template.render(path, values, debug=_DEBUG)
     
 class MainRequestHandler(BaseRequestHandler):
+
   def get(self):
     if users.get_current_user():
       url = users.create_logout_url(self.request.uri)
@@ -76,7 +77,29 @@ class MainRequestHandler(BaseRequestHandler):
       'url_linktext': url_linktext,
       }
 
-    self.response.out.write(self.generate('index.html', template_values));
+    self.response.out.write(self.generate('index.html', template_values))
+    
+class EmbedRequestHandler(MainRequestHandler):
+
+  def get(self):
+    import config
+    template_values = {
+        "SERVER_HOST": config.SERVER_HOST
+    }
+    self.response.out.write(self.generate('embed.html', template_values))
+    
+
+class WidgetJSHandler(MainRequestHandler):
+
+  def get(self):
+    import config
+    template_values = {
+        "SERVER_HOST": config.SERVER_HOST
+    }
+    self.response.headers['Content-Type'] = "application/javascript"
+    self.response.out.write(self.generate('party_page_widget.js', template_values))
+    
+        
 
 class ChatsRequestHandler(BaseRequestHandler):
   MEMCACHE_KEY = 'greetings'
@@ -176,6 +199,9 @@ class UserProfileHandler(BaseRequestHandler):
                                                 
 application = webapp.WSGIApplication(
                                      [('/', MainRequestHandler),
+                                      ('/iframe', MainRequestHandler),
+                                      ('/embed', EmbedRequestHandler),
+                                      ('/party-page-js', WidgetJSHandler),
                                       ('/getchats', ChatsRequestHandler),
                                       ('/user/([^/]+)', UserProfileHandler),
                                       ('/edituser/([^/]+)', EditUserProfileHandler)],

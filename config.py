@@ -1,0 +1,1 @@
+SERVER_HOST = 'http://localhost:8089' #  where widget script is being called from 
