@@ -13,6 +13,7 @@
 	var us = "{{ SERVER_HOST }}/party-page-js?gowith=" + encodeURIComponent(url);
 	var ns = document.createElement("script");
 	ns.src = us;
+	ns.type = "text/javascript";
 	s.parentElement.appendChild(ns);
     </script>
   </div>  
