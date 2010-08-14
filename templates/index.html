@@ -59,13 +59,14 @@
   </head>                                                                                     
   <body onload="setup()">
   <div class="wrapper">
+	
     <div id="chats"></div>
 	
 	<form id="send-chat-form" action="javascript:sendChat();">
       	<div class="form-item">
-	  		<input type="text" name="content" class="form-textfield" id="chattext" size="100" />
-			<input type="submit" class="form-submit" value="Send" />
-			<input type="button" class="form-refresh" value="Refresh" onclick="updateChat()" />
+	  		<input type="text" name="content" class="form-textfield" id="chattext" />
+			<br/><input type="submit" class="form-submit" value="Send" />
+			{#<input type="button" class="form-refresh" value="Refresh" onclick="updateChat()" />#}
 		</div>
     </form>
   </div>  

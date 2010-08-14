@@ -1,28 +1,46 @@
+@font-face {
+  font-family: 'IM Fell Great Primer SC';
+  font-style: normal;
+  font-weight: normal;
+  src: local('IM Fell Great Primer SC'), url('http://themes.googleusercontent.com/font?kit=A313vRj97hMMGFjt6rgSJuSNO5Eaym6LWE3jyfXmerw') format('truetype');
+}
+
 #chat_tab{
 	position:absolute;
-	top: 10%;
+	top: 50%;
+	margin-top: -70px;
 	right: 0px;
 	width:30px;
 	height:100px;
+	cursor:pointer;
 	border-top: 3px solid white;
 	border-left: 3px solid white;
 	border-bottom: 3px solid white;
 	border-right: 0px none #000;
+	padding-top:20px;
 	background: -webkit-gradient(linear, left top, right top, from(#111), to(#333));
 	-webkit-box-shadow: 0px 1px 3px #000;
 	-webkit-transition-duration: 0.2s;
 	-webkit-transition-property: right;
 }
 
-#chat_tab span
+#chat_tab span.inner
 {
 	position: relative;
 	display: block;
-	font-family: Arial;
+	font-family: 'IM Fell Great Primer SC', Arial;
 	font-weight: bolder;
+	font-size: 20px;
 	color: #eee;
 	-webkit-transform: rotate(-90deg) translate(-50px, 0px);
 	transform: rotate(-90deg) translate(-50px, 0px);
+}
+
+
+#chat_tab span.inner span
+{
+    font-size: 23px;
+    padding:3px;
 }
 
 #chat_wrapper{
