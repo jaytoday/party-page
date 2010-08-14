@@ -155,4 +155,9 @@ iframe
 {
 	border: none;
 }
-
+.timestamp
+{
+	font-size:10px;
+ 	color: #999999;
+}
+input { border-radius: 6px; outline:none;}
