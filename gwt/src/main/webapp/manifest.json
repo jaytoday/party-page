@@ -1,0 +1,12 @@
+{
+  "name": "Party Page",
+  "description": "Meet your friends online and browse and chat any webpage in realtime!",
+  "version": "1",
+  "icons": { "24": "gwt-24.jpg", "128": "gwt-128.png" },
+  "app": {
+    "launch": {
+      "local_path": "Greet.html"
+    }
+  },
+  "permissions": ["notifications"]
+}
