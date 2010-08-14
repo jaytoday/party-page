@@ -40,30 +40,32 @@ $partyPage = {
 
         $partyPage.loadStyles();
         
-        $partyPage.chatTab = jQuery('<div id="chat_tab"></div>');
+        $partyPage.chatTab = jQuery('<div id="chat_tab"><span>PARTY</span></div>');
         $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
-    
         if ('{{ login_url }}')
             $partyPage.chatWrapper.html('<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>');
         else 
-            $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe src="{{ SERVER_HOST }}/iframe"</div>');
+            $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe"</div>');
              
-         jQuery("body").append($partyPage.chatTab);
-         jQuery("body").append($partyPage.chatWrapper);
-  
-           $partyPage.chatTab.bind('click', function(){ 
-            $partyPage.chatWrapper.animate({ 
-                width: 400
-              }, 200 );
-
-        });   
-        
-        $partyPage.chatTab.live('collapse', function(){ 
-            $partyPage.chatWrapper.animate({ 
-                width: 0
-              }, 200 );
-        });   
-          
+        jQuery("body").append($partyPage.chatWrapper);
+        jQuery("body").append($partyPage.chatTab);
+	$partyPage.chatIframe = jQuery("#chat_iframe");
+	$partyPage.chatIframe.hide();
+	$partyPage.chatTab.toggle(
+	function(){ 
+		$(this).animate({marginRight:"400px"}, 200);
+		$partyPage.chatWrapper.animate({ 
+			width: "400px"
+		}, 200);
+		$partyPage.chatIframe.show();
+        }, 
+	function(){
+	    $(this).animate({marginRight:"0px"}, 200);
+		$partyPage.chatWrapper.animate({
+			width:"0px"
+		}, 200);
+		$partyPage.chatIframe.hide();
+	});   
 }
 
 };

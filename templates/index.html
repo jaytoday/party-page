@@ -30,10 +30,12 @@
 
 	function onChatsReturned(responseText, status) {
 		if (status == 200) {
-		  CHATS_DIV.innerHTML = responseText;
-		  scrollToBottom();
-		  highlightUser(CURRENT_USER, CHATS_DIV);
-		  makeLinks(CHATS_DIV);
+		  if (CHATS_DIV.innerHTML != responseText){
+			  CHATS_DIV.innerHTML = responseText;
+			  scrollToBottom();
+			  highlightUser(CURRENT_USER, CHATS_DIV);
+			  makeLinks(CHATS_DIV);		  
+		  }
 	    } 
 	    window.setTimeout("updateChat()", 1000);
 	}
