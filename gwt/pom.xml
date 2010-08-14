@@ -7,7 +7,7 @@
 	<groupId>com.partypage</groupId>
 	<artifactId>widgets</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>crx</packaging>
 
 	<name>Party Party UI</name>
 	<description>
@@ -54,6 +54,7 @@
 			<id>don-asf-repository</id>
 			<url>http://people.apache.org/~mrdon/repository/</url>
 		</repository>
+
 	</repositories>
 
 	<pluginRepositories>
@@ -63,6 +64,13 @@
 			<url>http://google-web-toolkit.googlecode.com/svn/2.1.0.M2/gwt/maven</url>
 			<name>Google Web Toolkit Repository</name>
 		</pluginRepository>
+		<!-- repo to make CRX project for Chrome -->
+		<pluginRepository>
+			<id>crx-repo</id>
+			<url>https://crx-maven-plugin.googlecode.com/svn/maven2</url>
+			<name>Chrome CRX Plugin Repository</name>
+		</pluginRepository>
+
 	</pluginRepositories>
 
 	<build>
@@ -76,6 +84,7 @@
 		</extensions>
 
 		<plugins>
+			<!-- for GIT interop -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -99,6 +108,7 @@
 				</dependencies>
 			</plugin>
 
+			<!-- for fancy annotations -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.1</version>
@@ -110,6 +120,16 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1-beta-1</version>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code</groupId>
+				<artifactId>crx-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<extensions>true</extensions>
+				<configuration>
+					<pemKey>key.pem</pemKey>
+					<pemCert>cert.pem</pemCert>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
