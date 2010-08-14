@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/71/trunk/simple-ajax-chat
+END
+app.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/65/trunk/simple-ajax-chat/app.yaml
+END
+devchat.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/69/trunk/simple-ajax-chat/devchat.py
+END
+index.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/68/trunk/simple-ajax-chat/index.yaml
+END

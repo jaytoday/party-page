@@ -1,0 +1,11 @@
+{% for greeting in greetings %}
+<div class="chat"> 
+{% if greeting.author %}
+	<strong class="nickname"><a href="/user/{{greeting.author.email}}">{{greeting.author.nickname}}</a>:</strong>
+{% else %}
+   	<strong class="nickname">Guest:</strong>
+{% endif %}
+	<div class="timestamp">({{ greeting.date }})</div>
+	<div class="content">{{ greeting.content|escape }}</div>
+</div> 
+{% endfor %}

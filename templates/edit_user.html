@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  	<title>My Profile</title>
+    <link type="text/css" rel="stylesheet" href="/css/main.css" media="screen" />
+  </head>
+  <body>
+  <div class="wrapper">
+  	<p><a href="/">&laquo; Back to chatroom</a></p>
+	{% block title %}<h1>My Profile</h1>{% endblock %}
+	{% block content %}
+	<form action="/edituser/{{ queried_user.greeting_user.email }}" method="POST" id="my-profile-form" enctype="multipart/form-data">
+	<div class="form-item">
+		<label>Email:</label> <input type="text" disabled="disabled" value="{{ queried_user.greeting_user.email }}" size="30" class="form-textfield-email" />
+	</div>
+	<div class="form-item">
+		<label>Avatar URL:</label> <input type="text" name="user_picture" value="{{ queried_user.picture }}" size="30" class="form-textfield-avatar" />
+		<div class="description">Size around 48x48 pixels</div>
+	</div>
+	<div class="form-item">
+		<label>Website:</label> <input type="text" name="user_website" value="{{ queried_user.website }}" size="30" class="form-textfield-website" />
+		<div class="description">E.g: www.yourwebsite.com</div>
+	</div>
+	<div class="form-item">
+		<label>Seated:</label> <input type="text" name="user_seated" value="{{ queried_user.seated }}" size="30" class="form-textfield-seated" />
+		<div class="description">E.g: 2 rows back, 10 from the right</div>
+	</div>
+	<input type="submit" value="Save User Information" />
+	</form>
+	{% endblock %}
+ </div>
+ </body>
+</html>

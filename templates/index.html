@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  	<title>Simple Ajax Chat</title>
+    <link type="text/css" rel="stylesheet" href="/css/main.css" media="screen" />
+    <script src="/js/util.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var CURRENT_USER = '{{ user.nickname }}';
+    var CHATS_DIV = null;
+    
+	function isNotEmpty(val) {
+		if (val.match(/^s+$/) || val == ""){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+    function updateChat() {
+	    downloadUrl(getRandomUrl("/getchats"), "GET", null, onChatsReturned);
+	}
+	
+	function sendChat(form) {
+		if (isNotEmpty(document.getElementById("chattext").value)) {
+			downloadUrl(getRandomUrl("/getchats"), "POST", "content=" + encodeURIComponent(document.getElementById("chattext").value), onChatsReturned);
+			document.getElementById("chattext").value = "";
+		}
+	}
+
+	function onChatsReturned(responseText, status) {
+		if (status == 200) {
+		  CHATS_DIV.innerHTML = responseText;
+		  scrollToBottom();
+		  highlightUser(CURRENT_USER, CHATS_DIV);
+		  makeLinks(CHATS_DIV);
+	    } 
+	    window.setTimeout("updateChat()", 10000);
+	}
+
+	function setup() {
+		updateChat();
+		CHATS_DIV = document.getElementById("chats");
+	}
+	
+	function scrollToBottom() {
+	  CHATS_DIV.scrollTop = CHATS_DIV.scrollHeight;
+	}
+	
+	function getRandomUrl(url) {
+  		var randUnrounded=Math.random()*999999999;
+  		var randNumber=Math.floor(randUnrounded);
+  		var randUrl = url + '?time=' + randNumber;
+  		return randUrl;
+	}
+	</script>
+  </head>                                                                                     
+  <body onload="setup()">
+  <div class="wrapper">
+  	{% if user %}
+		<ul id="userbar">
+			<li class="first"><!--// Maybe you can place avatar here //--> Logged in as {{ user.nickname }}</li>
+			<li><a href="/edituser/{{ user.email }}">Edit My Profile</a></li>
+			<li class="last"><a href="{{log_in_out_url}}">Log out</a></li>
+		</ul>
+   	{% else %}
+		<ul id="userbar">
+    		<li class="first last"><a href="{{log_in_out_url}}">Log in</a></li>
+		</ul>
+    {% endif %}
+   
+    <div id="chats"></div>
+	
+	<form id="send-chat-form" action="javascript:sendChat();">
+      	<div class="form-item">
+	  		<input type="text" name="content" class="form-textfield" id="chattext" size="100" />
+			<input type="submit" class="form-submit" value="Send" />
+			<input type="button" class="form-refresh" value="Refresh" onclick="updateChat()" />
+		</div>
+    </form>
+  </div>  
+  </body>
+</html>

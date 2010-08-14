@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/71/trunk/simple-ajax-chat/templates
+END
+user.html
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/71/trunk/simple-ajax-chat/templates/user.html
+END
+chats.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/71/trunk/simple-ajax-chat/templates/chats.html
+END
+edit_user.html
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/71/trunk/simple-ajax-chat/templates/edit_user.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/71/trunk/simple-ajax-chat/templates/index.html
+END

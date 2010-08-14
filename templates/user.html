@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link type="text/css" rel="stylesheet" href="/css/main.css" media="screen" />
+  </head>
+  <body>
+  <div class="wrapper">
+  <p><a href="/">&laquo; Back to chatroom</a></p>
+  {% block title %}<h1>Profile</h1>{% endblock %}
+  {% block content %}
+  <h2>
+	{% ifnotequal queried_user.picture "None" %}<img src="{{ queried_user.picture }}" />{% endifnotequal %}
+	 {{ queried_user.greeting_user.nickname }}</h2>
+  <dl id="user-profile">
+  	<dt>Email:</dt>
+		<dd>{{ queried_user.greeting_user.email }}</dd>
+	<dt>Website:</dt>
+		<dd>{{ queried_user.website }}</dd>
+	<dt>Seated:</dt>
+		<dd>{{ queried_user.seated }}</dd>
+  </dl>
+  {% endblock %}
+  </div>
+  </body>
+</html>
