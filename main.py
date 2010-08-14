@@ -83,8 +83,10 @@ class WidgetJSHandler(MainRequestHandler):
 
   def get(self):
     import config
+    from utils import cssmin 
     template_values = {
-        "SERVER_HOST": config.SERVER_HOST
+        "SERVER_HOST": config.SERVER_HOST,
+        "css": cssmin.cssmin(self.generate('party_page_widget.css', {})).replace('\n','').replace("'",'"')
     }
     if not users.get_current_user():
       template_values['login_url'] = users.create_logout_url(self.request.uri).split('continue=')[0]
@@ -189,6 +191,21 @@ class UserProfileHandler(BaseRequestHandler):
 
     # Generate the user profile
     self.response.out.write(self.generate('user.html', template_values={'queried_user': user}))
+
+
+    
+class EventFormHandler(BaseRequestHandler):
+    """ Process posted event form 
+    """
+    def post(self):
+        from google.appengine.api import mail
+        invites = [self.request.get('invites')]
+        for invitee in invites:
+            mail.send_mail(sender="Example.com Support <support@example.com>",
+                      to="Albert Johnson <Albert.Johnson@example.com>",
+                      subject="Your account has been approved",
+                      body="Email Body")
+
 
                                                 
 application = webapp.WSGIApplication(

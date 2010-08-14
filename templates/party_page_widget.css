@@ -1,0 +1,26 @@
+#chat_tab{
+position:absolute;
+top: 300px;
+right: 0px;
+width:30px;
+height:70px;
+border: 1px solid blue;
+border-bottom-left-radius: 10px;
+border-top-left-radius: 10px;
+background: -webkit-gradient(linear, left top, right top, from(rgba(179, 179, 179, 0.1)), to(yellow));
+-webkit-box-shadow: 0px 3px 3px #666;
+-webkit-transition-duration: 0.2s;
+-webkit-transition-property: right;
+}
+
+
+#chat_wrapper{
+position:absolute;
+right: 0px;
+top: 100px;
+width: 0px;
+height: 500px;
+background-color:rgba(0, 176, 216, 0.1);
+-webkit-box-shadow: 0px 3px 3px #666;
+}
+
