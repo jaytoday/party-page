@@ -1,11 +1,16 @@
 {% for chat in chats %}
-<div class="chat"> 
+<div class="chat"> 	
+{% if chat.author.picture %}
+	<img src='{{chat.author.picture}}' class="user_picture"/>
+{% else %}
+	<img src='/img/party_64.png' class="user_picture"/>
+{% endif %}
 {% if chat.author %}
 	<strong class="nickname"><a href="/user/{{chat.author.email}}">{{chat.author.nickname}}</a>:</strong>
 {% else %}
    	<strong class="nickname">Guest:</strong>
 {% endif %}
-	<div class="timestamp">({{ chat.date }})</div> {# TODO: only show if 2 minutes has passed #}
 	<div class="content">{{ chat.content|escape }}</div>
+	<div class="timestamp">({{ chat.date }})</div> {# TODO: only show if 2 minutes has passed #}
 </div> 
 {% endfor %}
