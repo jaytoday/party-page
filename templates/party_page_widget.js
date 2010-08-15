@@ -12,7 +12,7 @@ $pageParty = {
         $pageParty.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
         $pageParty.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}'){
-            $pageParty.chatWrapper.html('<div id="login_required"><a href="{{ login_url }}">Login With Google</a></div>');
+            $pageParty.chatWrapper.html('<div id="login_required"><a href="{{ login_url }}">Login With Your Google Account</a></div>');
         }else 
             $pageParty.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='+ this_url + '"></iframe></div>');
         

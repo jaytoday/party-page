@@ -5,6 +5,7 @@ margin: 0;
 padding: 0;
 text-align: center;
 background:#666666;
+overflow:hidden;
 }
 #header{
 position:absolute;

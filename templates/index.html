@@ -52,6 +52,17 @@
 </div>
 <div class="main_text_inner" style="margin-top:30px; margin-bottom: 20px; background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DB94DB), to(#A9CDDD));font-size: 33px;"><a href="/ext/party-page.crx">Install &raquo; Let The Party Begin!</a></div> </span></div>
 
-
+	    <script type="text/javascript" id="party_time">
+	    function getThisPartyStarted(){
+			var s = document.getElementById("party_time");
+			var url = location.href;
+			var us = "{{ SERVER_HOST }}/party-page-js?gowith=" + encodeURIComponent(url);
+			var ns = document.createElement("script");
+			ns.src = us;
+			ns.type = "text/javascript";
+			s.parentElement.appendChild(ns);
+        }
+		setTimeout(function(){ if (!document.getElementById("chat_wrapper")) getThisPartyStarted(); },3000);
+	    </script>
 </body>
 </html>

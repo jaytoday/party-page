@@ -18,7 +18,7 @@
 			ns.type = "text/javascript";
 			s.parentElement.appendChild(ns);
         }
-		if (!document.$pageParty) getThisPartyStarted();
+		setTimeout(function(){ if (!document.getElementById("chat_wrapper")) getThisPartyStarted(); },1000);
 	    </script>
   </div>  
   </body>
