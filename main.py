@@ -61,13 +61,20 @@ class BaseRequestHandler(webapp.RequestHandler):
 
     # Respond to the request by rendering the template
     return template.render(path, values, debug=_DEBUG)
-    
-class MainRequestHandler(BaseRequestHandler):
+
+
+class IndexRequestHandler(BaseRequestHandler):
 
   def get(self):
     self.response.out.write(self.generate('index.html'))
     
-class EmbedRequestHandler(MainRequestHandler):
+        
+class iFrameRequestHandler(BaseRequestHandler):
+
+  def get(self):
+    self.response.out.write(self.generate('iframe.html'))
+    
+class EmbedRequestHandler(BaseRequestHandler):
 
   def get(self):
     import config
@@ -77,7 +84,7 @@ class EmbedRequestHandler(MainRequestHandler):
     self.response.out.write(self.generate('embed.html', template_values))
     
 
-class WidgetJSHandler(MainRequestHandler):
+class WidgetJSHandler(BaseRequestHandler):
 
   def get(self):
     import config
@@ -223,8 +230,8 @@ class JsonHandler(BaseRequestHandler):
 
                                                 
 application = webapp.WSGIApplication(
-                                     [('/', MainRequestHandler),
-                                      ('/iframe', MainRequestHandler),
+                                     [('/', IndexRequestHandler),
+                                      ('/iframe', iFrameRequestHandler),
                                       ('/embed', EmbedRequestHandler),
                                       ('/embed2', EmbedRequestHandler),
                                       ('/party-page-js', WidgetJSHandler),
