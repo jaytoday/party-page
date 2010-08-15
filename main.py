@@ -122,9 +122,18 @@ class ChatsRequestHandler(BaseRequestHandler):
       chatsList = []
     else:
       chatsList = pickle.loads(chatsString)
-      if chatsList and len(chatsList) >= 40:
+      if chatsList and len(chatsList) >= 100:
         chatsList.pop(0)
     chatsList.insert(0, chat)
+    
+    import datetime
+    last_time = datetime.datetime.fromtimestamp(0)
+    for msg in chatsList:
+        logging.info(last_time + datetime.timedelta(seconds=120))
+        logging.info(msg.date - (last_time + datetime.timedelta(seconds=120)))
+        if msg.date > last_time + datetime.timedelta(seconds=120):
+            msg.natural_date = (msg.date - datetime.timedelta(hours=7)).strftime("%I:%M%p - %A %B %d, %Y")
+        last_time = msg.date
     if not memcache.set(self.MEMCACHE_KEY + str(chat.session.key()), pickle.dumps(chatsList)):
         logging.debug("Memcache set failed:")  
 
@@ -133,7 +142,6 @@ class ChatsRequestHandler(BaseRequestHandler):
     }
     
     template = self.generate('chats.html', template_values)
-    logging.info(template)
     if not memcache.set(self.MEMCACHE_TEMPLATE + str(chat.session.key()), template):
         logging.debug("Memcache set failed:")          
     
