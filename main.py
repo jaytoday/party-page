@@ -131,7 +131,7 @@ class ChatsRequestHandler(BaseRequestHandler):
       'You had me at "Hello World."', 'How about we go home and you handle my exception?'
       ] 
     import random
-    if random.randint(1,10):
+    if False:
         c = random.choice(cfs)
         if c: chat.content += (' ' + c)
     
