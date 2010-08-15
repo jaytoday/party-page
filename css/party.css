@@ -18,6 +18,14 @@ font-family: 'IM Fell Great Primer SC', arial, serif;
 font-size:26px;
 border-radius: 5px;
 }
+
+@font-face {
+  font-family: 'Molengo';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Molengo'), url('http://themes.googleusercontent.com/font?kit=txVk61PTIsDrQQj2fK-76Q') format('truetype');
+}
+
 #logo{
 position:absolute;
 background-image:url(party_64.png);
@@ -28,9 +36,10 @@ top:10px;
 }
 #main_text{
 position:absolute;
-background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#323232), to(#434343));
+ background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#323232), to(#434343)); 
+
 width:560px;
-height:600px;
+/* height:600px; */
 left: 350px;
 top: 88px;
 color:#FFFFFF;
@@ -50,10 +59,11 @@ z-index:2;
 }
 .main_text_inner
 {
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CAD5EB), to(#E8EDFF));
+	/* background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CAD5EB), to(#E8EDFF)); */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ABA1AB), to(#C8CDDD));
 	-webkit-border-radius: 10px;
 	-webkit-box-shadow: 0 5px 5px -3px black;
-	font-family: 'IM Fell Great Primer SC', airal, serif;
+	font-family: 'IM Fell Great Primer SC', arial, serif;
 	max-width:530px;
 	min-height:40px;
 	color:#000000;
@@ -95,7 +105,7 @@ z-index:2;
 	left: 30%;
 	position: relative;
 	clear: both;
-	font-family: 'IM Fell Great Primer SC', airal, serif;
+	font-family: 'IM Fell Great Primer SC', arial, serif;
 	font-size: 300%;
 	color: white;
 	background: -webkit-gradient(linear, 0 0, 0 100%, from(#111), to(#333));
@@ -118,18 +128,50 @@ z-index:2;
 }
 .content
 {
-	display: block;
+	display: none;
 	position: relative;
 	overflow: hidden;
 	height: 0;
 	-webkit-transition: all .2s ease;
-	font-size: 50%;
+	font-size: 16px;
+	font-family: 'Molengo', arial, serif; /* 'IM Fell Great Primer SC', */
+    float: left;
+    height: auto;
+    line-height: 18px;
+    margin: 20px;
+    overflow: auto;
+    text-align: center;
+    clear: both;
 }
 .content:target
 {
-	display: block;
-	float: left;
-	clear: both;
-	height: auto;
-	overflow: auto;
+    
+    display: block;
 }
+
+      .ribbon {
+        background-color: #a00;
+        overflow: hidden;
+        /* top left corner */
+        position: absolute;
+        left: -3em;
+        top: 2.5em;
+        /* 45 deg ccw rotation */
+        -moz-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        /* shadow */
+        -moz-box-shadow: 0 0 1em #888;
+        -webkit-box-shadow: 0 0 1em #888;
+      }
+      .ribbon a {
+        border: 1px solid #faa;
+        color: #fff;
+        display: block;
+        font: bold 81.25% 'Molengo', Helvetica, Arial, sans-serif;
+        margin: 0.05em 0 0.075em 0;
+        padding: 0.5em 3.5em;
+        text-align: center;
+        text-decoration: none;
+        /* shadow */
+        text-shadow: 0 0 0.5em #444;
+      }

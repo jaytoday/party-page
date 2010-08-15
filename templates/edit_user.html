@@ -7,7 +7,7 @@
   </head>
   <body>
   <div class="user_wrapper">
-  	<p><a href="/">&laquo; Back to chatroom</a></p>
+  	<p><a href="/iframe">&laquo; Back to chatroom</a></p>
 	{% block title %}<h1>My Profile</h1>{% endblock %}
 	{% block content %}
 	<form action="/edituser/{{ queried_user.greeting_user.email }}" method="POST" id="my-profile-form" enctype="multipart/form-data">

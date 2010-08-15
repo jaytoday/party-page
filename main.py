@@ -102,8 +102,8 @@ class WidgetJSHandler(BaseRequestHandler):
         
 
 class ChatsRequestHandler(BaseRequestHandler):
-  MEMCACHE_KEY = 'chats'
-  MEMCACHE_TEMPLATE = 'chats_template'
+  MEMCACHE_KEY = 'partypage'
+  MEMCACHE_TEMPLATE = 'partypage_template'
   
   def get(self):
     chat_url = urllib2.unquote(self.request.get('url'))
@@ -120,14 +120,21 @@ class ChatsRequestHandler(BaseRequestHandler):
     if author:
       chat.author = author
     
+    chat.content = self.request.get('content')
+    
+    
     cfs = ['', 'I love you! I have always loved you. There. I said it.', '', 
       ' I sometimes wear a bowtie in the shower.', '', 'My spirit animal is a nudist pirate named Karl.', 
       '', 'Just shut up. I am so sick and tired of you. SERIOUSLY. ', '', 'my ding ding hurts', '', 
-      ' Do u w4nna cyb3r?', '', 'I have eight husbands and a one legged parakeet.', 
-      '', 'I like making sweet love to Peruvian lamas.', ''] 
+      ' Do u w4nna cyb3r?', '', '', '', '' 'I have eight husbands and a one legged parakeet.', 
+      '', 'I like making sweet love to Peruvian lamas.', 'HAI! I CAN HAZ A HUGZ?'
+      'You had me at "Hello World."', 'How about we go home and you handle my exception?'
+      ] 
     import random
     c = random.choice(cfs)
-    chat.content = self.request.get('content') + ' ' + c
+    if c: chat.content += (' ' + c)
+    
+    
     chat_url = urllib2.unquote(self.request.get('url'))
     chat.session = models.ChatSession.get(chat_url, author)
     chat.put()
