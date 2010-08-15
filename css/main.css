@@ -85,7 +85,8 @@ a{
 ul#userbar{
 	margin:0;
 	padding:8px 0 8px 0;
-	overflow:auto;
+	overflow-y:auto;
+	overflow-x:hidden;
 }
 ul#userbar li{
 	list-style:none;
@@ -113,7 +114,8 @@ ul#userbar li a:hover{
 #chats{
 	padding:8px;
 	background-color:#fff;	
-	overflow:auto;
+	overflow-y:auto;
+	overflow-x:hidden;
 	margin-bottom:5px;
 	height:85%;
 	border:solid 1px #fff;
@@ -144,7 +146,8 @@ form#send-chat-form input.form-refresh{
 /* Edit my profile form */
 form#my-profile-form{}
 form#my-profile-form .form-item{
-	overflow:auto;
+	overflow-y:auto;
+	overflow-x:hidden;
 	clear:both;
 	padding:0 0 8px 0;
 }

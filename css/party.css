@@ -138,8 +138,8 @@ z-index:2;
     float: left;
     height: auto;
     line-height: 18px;
-    margin: 20px;
-    overflow: auto;
+    margin: 15px;
+    padding: 10px;
     text-align: center;
     clear: both;
 }
