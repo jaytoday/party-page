@@ -1,6 +1,6 @@
 import cgi
 import os
-import urllib
+import urllib, urllib2
 import logging
 import pickle
 
@@ -98,19 +98,26 @@ class ChatsRequestHandler(BaseRequestHandler):
   MEMCACHE_TEMPLATE = 'chats_template'
   
   def get(self):
-    template = memcache.get(self.MEMCACHE_TEMPLATE)
+    chat_url = urllib2.unquote(self.request.get('url'))
+    author = users.get_current_user()
+    logging.info(chat_url)
+    session = models.ChatSession.get(chat_url, author)
+    template = memcache.get(self.MEMCACHE_TEMPLATE + str(session.key()))
     self.response.out.write(template)
     
   def post(self):
     chat = models.ChatMessage()
 
-    if users.get_current_user():
-      chat.author = users.get_current_user()
+    author = users.get_current_user()
+    if author:
+      chat.author = author
     
     chat.content = self.request.get('content')
+    chat_url = urllib2.unquote(self.request.get('url'))
+    chat.session = models.ChatSession.get(chat_url, author)
     chat.put()
     
-    chatsString = memcache.get(self.MEMCACHE_KEY)
+    chatsString = memcache.get(self.MEMCACHE_KEY + str(chat.session.key()))
     if chatsString is None:
       chatsList = []
     else:
@@ -119,7 +126,7 @@ class ChatsRequestHandler(BaseRequestHandler):
         chatsList.pop(0)
     chatsList.append(chat)
     chatsList.reverse()
-    if not memcache.set(self.MEMCACHE_KEY, pickle.dumps(chatsList)):
+    if not memcache.set(self.MEMCACHE_KEY + str(chat.session.key()), pickle.dumps(chatsList)):
         logging.debug("Memcache set failed:")  
 
     template_values = {
@@ -128,7 +135,7 @@ class ChatsRequestHandler(BaseRequestHandler):
     
     template = self.generate('chats.html', template_values)
     logging.info(template)
-    if not memcache.set(self.MEMCACHE_TEMPLATE, template):
+    if not memcache.set(self.MEMCACHE_TEMPLATE + str(chat.session.key()), template):
         logging.debug("Memcache set failed:")          
     
     self.response.out.write(template)

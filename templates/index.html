@@ -4,57 +4,87 @@
   <head>
   	<title>Simple Ajax Chat</title>
     <link type="text/css" rel="stylesheet" href="/css/main.css" media="screen" />
-    <script src="/js/util.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/util.js" type="text/javascript"></script>
     <script type="text/javascript">
     var CURRENT_USER = '{{ user.nickname }}';
     var CHATS_DIV = null;
-    
-	function isNotEmpty(val) {
-		if (val.match(/^s+$/) || val == ""){
-			return false;
-		} else {
-			return true;
-		}
-	}
-	
-    function updateChat() {
-	    downloadUrl(getRandomUrl("/getchats"), "GET", null, onChatsReturned);
-	}
-	
-	function sendChat(form) {
-		if (isNotEmpty(document.getElementById("chattext").value)) {
-			downloadUrl(getRandomUrl("/getchats"), "POST", "content=" + encodeURIComponent(document.getElementById("chattext").value), onChatsReturned);
-			document.getElementById("chattext").value = "";
-		}
-	}
+    var this_url = encodeURIComponent(window.location.href.split('?')[0]);
+
 
 	function onChatsReturned(responseText, status) {
-		if (status == 200) {
-		  if (CHATS_DIV.innerHTML != responseText){
-			  CHATS_DIV.innerHTML = responseText;
-			  //scrollToBottom();
+		var chats_el = $('<div></div>'); chats_el.html(responseText);
+		if (status == 'success') {
+			console.log( chats_el.html());
+		  if (CHATS_DIV.html() != chats_el.html()){
+			  CHATS_DIV.html(chats_el.html());
+			  scrollToBottom();
 			  highlightUser(CURRENT_USER, CHATS_DIV);
 			  makeLinks(CHATS_DIV);		  
 		  }
 	    } 
-	    window.setTimeout("updateChat()", 1000);
+	    window.setTimeout("updateChat()", 10000);
 	}
+	
+    function updateChat() {
+		$.ajax({
+		  url: '/getchats',
+		  type: "GET",
+		  dataType: "html",	
+		  data: {
+			url: this_url
+		   },
+		  success: onChatsReturned
+		});
+	};
+	
+	function sendChat(form) {
+	  if ($("#chattext").val()) {
+			$.ajax({
+			  url: '/getchats',
+			  type: "POST",
+			  dataType: "html",	
+			  data: {
+				content: $("#chattext").val(),  
+				url: this_url
+			   },
+			  success: onChatsReturned
+			});
+		
+			$("#chattext").val('');
+		
+		}
+	};
+
 
 	function setup() {
 		updateChat();
-		CHATS_DIV = document.getElementById("chats");
+		CHATS_DIV = $("#chats");
 	}
 	
 	function scrollToBottom() {
 	  CHATS_DIV.scrollTop = CHATS_DIV.scrollHeight;
 	}
 	
-	function getRandomUrl(url) {
-  		var randUnrounded=Math.random()*999999999;
-  		var randNumber=Math.floor(randUnrounded);
-  		var randUrl = url + '?time=' + randNumber;
-  		return randUrl;
-	}
+	
+	$(function(){
+		$('button#room').click(function(){
+			$('#options').hide();
+			$('#change_room').show()
+			.find('button').click(function(){
+					$('#change_room').hide();
+					$('#options').show();
+	   			
+			var room_name = $('#change_room').find('input#room_name').val();
+			if (room_name && $(this).attr('id') == 'continue')
+					{
+						$('#change_room').find('input#room_name').val('');
+					}
+			});
+		})
+	});
+	
+	
 	</script>
   </head>                                                                                     
   <body onload="setup()">
@@ -71,10 +101,16 @@
 	
     <div id="chats"></div>
 	
-	<button>Change Rooms</button>&nbsp;<button>Send Invites
+	<div id="options" style="display:none;">
+		<span>Current Room: <span style="text-overflow:ellipsis;">{{ current_room }}</span></span>
+		&nbsp;<button id="room">Change Rooms</button>
+		{# &nbsp;<button id="send_invites">Send Invites</button> #}
+	</div>
+	<div id="change_room" style="display:none;">
+		<input id="room_name" placeholder="Enter room name..." style="width:150px;"/> 
+		<button id="continue">OK</button>&nbsp;<button id="cancel">Cancel</button>
+	</div>
 	
-
-
   </div>  
 
   </body>
