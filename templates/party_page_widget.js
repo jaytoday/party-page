@@ -1,14 +1,16 @@
 {% include "jquery.js" %}
 
+
 var jQueryScriptOutputted = false;
 
 $pageParty = {
 
+    started: false,
+    
     init: function(){
 
         var this_url = encodeURIComponent(window.location.href.split('?')[0]);
         $pageParty.loadStyles();
-        
         $pageParty.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
         $pageParty.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}'){
@@ -37,6 +39,8 @@ $pageParty = {
 		}, 200);
 		$pageParty.chatIframe.hide();
 	}
+	
+    $pageParty.started = true;
 },
 
 // inject quiz css into the document head
@@ -50,9 +54,8 @@ $pageParty = {
 
 };
 
-if (!$pageParty) $pageParty.init();
-
-
+// check  
+//document.$pageParty = $pageParty;
 
 function getQueryParams( val ) {
         //Use the window.location.search if we don't have a val.

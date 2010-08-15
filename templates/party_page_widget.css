@@ -1,13 +1,7 @@
 #chat_wrapper html, #chat_wrapper body, #chat_wrapper div, #chat_wrapper span, #chat_wrapper applet, #chat_wrapper object, #chat_wrapper iframe,
 h1, #chat_wrapper h2, #chat_wrapper h3, #chat_wrapper h4, #chat_wrapper h5, #chat_wrapper h6, #chat_wrapper p, #chat_wrapper blockquote, #chat_wrapper pre,
-a, #chat_wrapper abbr, #chat_wrapper acronym, #chat_wrapper address, #chat_wrapper big, #chat_wrapper cite, #chat_wrapper code,
-del, #chat_wrapper dfn, #chat_wrapper em, #chat_wrapper font, #chat_wrapper img, #chat_wrapper ins, #chat_wrapper kbd, #chat_wrapper q, #chat_wrapper s, #chat_wrapper samp,
-small, #chat_wrapper strike, #chat_wrapper strong, #chat_wrapper sub, #chat_wrapper sup, #chat_wrapper tt, #chat_wrapper var,
-b, #chat_wrapper u, #chat_wrapper i, #chat_wrapper center,
-dl, #chat_wrapper dt, #chat_wrapper dd, #chat_wrapper ol, #chat_wrapper ul, #chat_wrapper li,
-fieldset, #chat_wrapper form, #chat_wrapper label, #chat_wrapper legend,
-table, #chat_wrapper caption, #chat_wrapper tbody, #chat_wrapper tfoot, #chat_wrapper thead, 
-#chat_wrapper tr, #chat_wrapper th, #chat_wrapper td,
+a, #chat_wrapper ol, #chat_wrapper ul, #chat_wrapper li,
+fieldset, #chat_wrapper form,
 #chat_tab, #chat_wrapper {
 	margin: 0;
 	padding: 0;
@@ -16,9 +10,6 @@ table, #chat_wrapper caption, #chat_wrapper tbody, #chat_wrapper tfoot, #chat_wr
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
-}
-#chat_wrapper body {
-	line-height: 1;
 }
 #chat_wrapper ol, #chat_wrapper ul {
 	list-style: none;
