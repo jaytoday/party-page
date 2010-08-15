@@ -87,7 +87,7 @@ class WidgetJSHandler(MainRequestHandler):
         "css": cssmin.cssmin(self.generate('party_page_widget.css', {})).replace('\n','').replace("'",'"')
     }
     if not users.get_current_user():
-      template_values['login_url'] = users.create_login_url(self.request.uri).split('continue=')[0]
+      template_values['login_url'] = users.create_login_url(self.request.uri)#.split('continue=')[0]
     self.response.headers['Content-Type'] = "application/javascript"
     self.response.out.write(self.generate('party_page_widget.js', template_values))
     

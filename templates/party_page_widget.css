@@ -54,7 +54,7 @@ iframe
 	top: 2px;
 	width: 0px;
 	height: 99%;
-	background-color:rgba(0, 176, 216, 0.1);
+	background-color: #333;
 	-webkit-box-shadow: 0px 3px 3px #666;
 }
 #chat_wrapper iframe
