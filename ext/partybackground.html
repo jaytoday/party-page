@@ -1,18 +1,26 @@
 <html>
 	<head>
 		<script type="text/javascript">
-			chrome.browserAction.onClicked.addListener(function(tab){
+			/* chrome.browserAction.onClicked.addListener(function(tab){
 				chrome.tabs.executeScript(tab.id, {file: "embed.js"});
-			});
-			chrome.tabs.onAttached.addListener(function(tab){
-				chrome.tabs.executeScript(tab.id, {file: "drag.js"});
-			});
-			chrome.tabs.onSelectionChanged.addListener(function(tab){
-				chrome.tabs.executeScript(tab.id, {file: "drag.js"});
-			});
-			chrome.tabs.onUpdated.addListener(function(tab){
-				chrome.tabs.executeScript(tab.id, {file: "drag.js"});
-			});
+			}); */
+			//chrome.tabs.executeScript(null, {file: "drag.js"});
+			chrome.extenstion.onRequest.addListener(
+				function(request, sender, sendResponse) {
+					if ($("#chattext").val()) {
+						$.ajax({
+							url: '/getchats',
+							type: "POST",
+							dataType: "html",	
+							data: {
+							content: request.content,  
+							url: this_url},
+							success: function(x, s){console.log(x);console.log(s);}
+						});
+					}
+				},
+				{message: "I tried"}
+			);
 		</script>
 	</head>
 </html>

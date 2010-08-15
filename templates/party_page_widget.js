@@ -1,6 +1,5 @@
 {% include "jquery.js" %}
 
-
 var jQueryScriptOutputted = false;
 
 $pageParty = {
@@ -20,11 +19,11 @@ $pageParty = {
         jQuery("body").append($pageParty.chatWrapper);
         jQuery("body").append($pageParty.chatTab);
 	$pageParty.chatIframe = jQuery("#chat_iframe");
-	var chat_tab = document.getElementById("chat_tab");
+	console.log("chat tab injected");
+ 	var chat_tab = document.getElementById("chat_tab");
 	chat_tab.ondragover = DONOTHING;
 	chat_tab.ondragenter = DONOTHING;
 	chat_tab.ondrop = urlDrop;
-
 	
 	$pageParty.chatIframe.hide();
 	$pageParty.chatTab.toggle(
@@ -56,14 +55,15 @@ $pageParty = {
     },
 
 };
-function DONOTHING(e){
+ function DONOTHING(e){
 	e.preventDefault();
 }
 
 function urlDrop(e){
-	var idDrag = e.dataTransfer.getData("text/plain");
-	console.log(idDrag);
-}	
+	var urlDropText = e.dataTransfer.getData("text/plain");
+	console.log(urlDropText);
+	callContentScript(urlDropText);
+}
 $pageParty.init();
 
 function getQueryParams( val ) {
@@ -77,7 +77,18 @@ function getQueryParams( val ) {
                 check = pairs[i].split('=');
                 retval[decodeURIComponent(check[0])] = decodeURIComponent(check[1]);
         }
-
         return retval;
 }
-    
+var this_url = getQueryParams(window.location.href)['url'];
+function callContentScript(msg){
+	$.ajax({
+	  url: 'http://party-page.appspot.com/getchats',
+	  type: "POST",
+	  dataType: "html",	
+	  data: {
+		content: msg,  
+		url: this_url
+	   },
+	  success: function(x){console.log(x);}
+	});
+}
