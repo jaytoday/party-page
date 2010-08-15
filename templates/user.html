@@ -7,17 +7,20 @@
   <body>
   <div class="user_wrapper">
   <p><a href="/">&laquo; Back to chatroom</a></p>
-  {% block title %}<h1>Profile</h1>{% endblock %}
+  {% block title %}<h1>&nbsp;{{ queried_user.user.nickname }}</h1>{% endblock %}
   {% block content %}
-  <h2>
-	{% ifnotequal queried_user.picture "None" %}<img src="{{ queried_user.picture }}" />{% endifnotequal %}
-	 {{ queried_user.greeting_user.nickname }}</h2>
+ <div style="margin:10px;">
+  <h2 style="margin:10px;">
+	{{ queried_user.user }}
+	{% if queried_user.picture %}<img src="{{ queried_user.picture }}" />{% endif %}
+	 </h2>
   <dl id="user-profile">
   	<dt>Email:</dt>
-		<dd>{{ queried_user.greeting_user.email }}</dd>
+		<dd>{{ queried_user.user.email }}</dd>
 	<dt>Website:</dt>
 		<dd>{{ queried_user.website }}</dd>
   </dl>
+	</div>
   {% endblock %}
   </div>
   </body>

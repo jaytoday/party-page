@@ -4,7 +4,6 @@ class ChatUser(db.Model):
   user = db.UserProperty()
   joined = db.DateTimeProperty(auto_now_add=True)
   picture = db.StringProperty()
-  seated = db.StringProperty()
   website = db.StringProperty()
  
    

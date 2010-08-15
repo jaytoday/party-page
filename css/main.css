@@ -75,6 +75,12 @@ a{
 	background:#EEE;
 }
 
+.user_wrapper p{
+    margin:10px;
+}
+.user_wrapper h1{
+ font-size: 25px;   
+}
 /* User bar with logout/login, username, etc */
 ul#userbar{
 	margin:0;
@@ -188,7 +194,12 @@ h2{
 	margin:0 0 2px 0;
 	width: 100%;
 }
-.chat .user_picture {float: left;}
+.chat .user_picture {
+    float: left;
+    width: 32px;
+    height: 32px;
+    margin: 0 5px;
+}
 .chat strong.nickname{}
 .chat strong.nickname a{}
 .chat .content{
@@ -198,9 +209,9 @@ h2{
     font-size:12px;
     line-height:1.5em;
     padding:1px 1px 1px 1px;
-    margin:0 0 2px 0;
+    margin:0 0 2px 5px;
     width: 100%;    
-    min-height:70px;
+    min-height:40px;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CAD5EB), to(#E8EDFF));
     -webkit-border-radius: 10px;
     -webkit-box-shadow: 0 5px 5px -3px black;
