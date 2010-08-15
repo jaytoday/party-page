@@ -5,7 +5,7 @@ margin: 0;
 padding: 0;
 text-align: center;
 background:#666666;
-overflow:hidden;
+overflow-x:hidden;
 }
 #header{
 position:absolute;
@@ -143,6 +143,10 @@ z-index:2;
     padding: 10px;
     text-align: center;
     clear: both;
+}
+
+.content li{
+    text-align:left;
 }
 .content:target
 {

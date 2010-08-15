@@ -10,10 +10,7 @@
 			color: white;
 			font-size: 16px;
 			text-shadow: rgba(0, 0, 0, 0.7) 1px 1px 2px;
-			/* We use the following properties to apply the fade and drop animations to each confetti.
-			   Each of these properties takes two values. These values respectively match a setting
-			   for fade and drop.
-			*/
+
 			-webkit-animation-iteration-count: infinite, 20;
 			-webkit-animation-direction: normal, normal;
 			-webkit-animation-timing-function: linear, ease-in;
@@ -24,11 +21,7 @@
 			display: block;
 			width: 1em;
 			height: 1em;
-			/* We use the following properties to adjust the clockwiseSpin or counterclockwiseSpin
-			   animations on each confetti.
-			   The createASnowflake function determines whether a flake has the 
-			   clockwiseSpin or counterclockwiseSpin animation.
-			*/
+
 			-webkit-animation-iteration-count: infinite;
 			-webkit-animation-direction: alternate;
 			-webkit-animation-timing-function: ease-in-out;
@@ -56,29 +49,25 @@
 			font-size: 7em;
 		}
 
-		/* Hides a confetti towards the very end of the animation */
 		@-webkit-keyframes fade {
 			/* Show a confetti while into or below 85 percent of the animation and hide it, otherwise */
 			0%   { opacity: 1; }
-			85%  { opacity: 1; }
+			80%  { opacity: 1; }
 			100% { opacity: 0; }
 		}
 
-		/* Makes a confetti fall from -50px to 650px pixels in the y-axis */
 		@-webkit-keyframes drop {
-			0%   { -webkit-transform: translate(0px, -50px); }
-			100% { -webkit-transform: translate(0px, 650px); }
+			0%   { -webkit-transform: translate(0px, -40px); }
+			100% { -webkit-transform: translate(0px, 700px); }
 		}
 
-		/* Rotates a confetti from -50 to 50 degrees in 2D space */
 		@-webkit-keyframes clockwiseSpin {
-			0%   { -webkit-transform: rotate(-50deg); }
-			100% { -webkit-transform: rotate(50deg); }
+			0%   { -webkit-transform: rotate(-70deg); }
+			100% { -webkit-transform: rotate(70deg); }
 		}
 
 
-		/* Rotates it from 50 to -50 degrees in 2D space */
 		@-webkit-keyframes counterclockwiseSpin  {
-			0%   { -webkit-transform: rotate(50deg); }
-			100% { -webkit-transform: rotate(-50deg); }
+			0%   { -webkit-transform: rotate(75deg); }
+			100% { -webkit-transform: rotate(-75deg); }
 		}

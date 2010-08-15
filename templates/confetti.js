@@ -6,7 +6,7 @@
 		/* Fill the empty container with freshly driven confetti */
 		var first = true;
 		for (var i = 0; i < CONFETTIS; i++) {
-			document.body.appendChild(createAConfetti(first));
+			document.body.appendChild(makeConfetti(first));
 			first = false;
 		}
 	}
@@ -36,7 +36,7 @@
 		return value + 's';
 	}
  
-	function createAConfetti(is_first) {
+	function makeConfetti(is_first) {
 		var confettis = ['2730', '272F', '272B', '272C', '2727', '2729'];
 		var colors = ['red','blue','green','red','yellow','purple','pink','lightGreen','lightBlue'];
 		var sizes = ['tiny', 'tiny', 'tiny', 'small', 'small', 'small', 'small', 'medium', 'medium', 'medium', 'medium', 'medium', 'medium', 'large', 'massive'];
@@ -61,10 +61,10 @@
 		var fadeAndDropDuration = durationValue(randomFloat(5, 11));
  
 		/* Figure out another random duration for the spin animation */
-		var spinDuration = durationValue(randomFloat(4, 8));
+		var spinDuration = durationValue(randomFloat(4, 15));
  
 		// how long to wait before the confettis arrive
-		var confettiDelay = is_first ? 0 : durationValue(randomFloat(0, 10));
+		var confettiDelay = is_first ? 0 : durationValue(randomFloat(0, 7));
  
 		confettiElement.style.webkitAnimationName = 'fade, drop';
 		confettiElement.style.webkitAnimationDuration = fadeAndDropDuration + ', ' + fadeAndDropDuration;
