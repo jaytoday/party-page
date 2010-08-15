@@ -1,44 +1,8 @@
+{% include "jquery.js" %}
 
 var jQueryScriptOutputted = false;
 
 $partyPage = {
-    
-    initJQuery: function (){
-
-        //if the jQuery object isn't available
-        if (typeof(jQuery) == 'undefined') {
-    
-            if (!jQueryScriptOutputted) {
-                //only output the script once..
-                jQueryScriptOutputted = true;
-            
-                //output the script (load it from google api)
-                document.write('<script type="text/javascript"'
-                + ' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js">'
-                + '</script>');
-            }else{
-                jQuery.noConflict();		    
-	    }
-            setTimeout("$partyPage.initJQuery()", 50);
-        } else {
-             
-              jQuery(document).ready(function(){
-                // Code that uses jQuery's $ can follow here.
-                $partyPage.init(); 
-              });
-                                  
-        }
-            
-    },
-
-// inject quiz css into the document head
-    loadStyles: function(){
-        var widgetStyles = '{{ css }}';
-        var style = document.createElement('style');
-        style.rel = "stylesheet"; style.type = "text/css";
-        jQuery(style).html(widgetStyles);
-        jQuery('head').append(style);
-    },
 
     init: function(){
 
@@ -77,11 +41,20 @@ $partyPage = {
 		}, 200);
 		$partyPage.chatIframe.hide();
 	}
-}
+},
+
+// inject quiz css into the document head
+    loadStyles: function(){
+        var widgetStyles = '{{ css }}';
+        var style = document.createElement('style');
+        style.rel = "stylesheet"; style.type = "text/css";
+        jQuery(style).html(widgetStyles);
+        jQuery('head').append(style);
+    },
 
 };
 
-$partyPage.initJQuery();
+$partyPage.init();
 
 
 
