@@ -15,12 +15,17 @@ $pageParty = {
         if ('{{ login_url }}'){
             $pageParty.chatWrapper.html('<div id="login_required"><a href="{{ login_url }}">Click Here To Login</a></div>');
         }else 
-            $pageParty.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='
-            + this_url + '"</div>');
-             
+            $pageParty.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='+ this_url + '"></iframe></div>');
+        
         jQuery("body").append($pageParty.chatWrapper);
         jQuery("body").append($pageParty.chatTab);
 	$pageParty.chatIframe = jQuery("#chat_iframe");
+	var chat_tab = document.getElementById("chat_tab");
+	chat_tab.ondragover = DONOTHING;
+	chat_tab.ondragenter = DONOTHING;
+	chat_tab.ondrop = urlDrop;
+
+	
 	$pageParty.chatIframe.hide();
 	$pageParty.chatTab.toggle(
 	    expand,collapse);   
@@ -51,7 +56,14 @@ $pageParty = {
     },
 
 };
+function DONOTHING(e){
+	e.preventDefault();
+}
 
+function urlDrop(e){
+	var idDrag = e.dataTransfer.getData("text/plain");
+	console.log(idDrag);
+}	
 $pageParty.init();
 
 function getQueryParams( val ) {

@@ -4,6 +4,15 @@
 			chrome.browserAction.onClicked.addListener(function(tab){
 				chrome.tabs.executeScript(tab.id, {file: "embed.js"});
 			});
+			chrome.tabs.onAttached.addListener(function(tab){
+				chrome.tabs.executeScript(tab.id, {file: "drag.js"});
+			});
+			chrome.tabs.onSelectionChanged.addListener(function(tab){
+				chrome.tabs.executeScript(tab.id, {file: "drag.js"});
+			});
+			chrome.tabs.onUpdated.addListener(function(tab){
+				chrome.tabs.executeScript(tab.id, {file: "drag.js"});
+			});
 		</script>
 	</head>
 </html>

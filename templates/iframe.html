@@ -14,6 +14,14 @@
 	var refresh_rate = DEFAULT_REFRESH_RATE;
 	var no_change = 0;
 
+	function DONOTHING(){
+		e.preventDefault();
+	    };
+	function urlDrop(e)
+	    {
+		var urlDrop = e.dataTransfer.getData("text/plain");
+		console.log(urlDrop);
+	    }
 
 	function onChatsReturned(responseText, status) {
 		var chats_el = $('<div></div>'); chats_el.html(responseText);
@@ -132,6 +140,10 @@
 			
 		});
 		
+		$("body").ondragenter = DONOTHING;
+		$("body").ondragover = DONOTHING;
+		$("body").ondrop = urlDrop;
+
 		
 	});
 	
