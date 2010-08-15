@@ -16,9 +16,8 @@
 	function onChatsReturned(responseText, status) {
 		var chats_el = $('<div></div>'); chats_el.html(responseText);
 		if (status == 'success') {
-			console.log( chats_el.html());
-		  if (CHATS_DIV.html() != chats_el.html()){
-			  CHATS_DIV.html(chats_el.html());
+		  if ($(CHATS_DIV).html() != chats_el.html()){
+			  $(CHATS_DIV).html(chats_el.html());
 			  scrollToBottom();
 			  highlightUser(CURRENT_USER, CHATS_DIV);
 			  makeLinks(CHATS_DIV);		  
@@ -60,7 +59,7 @@
 
 	function setup() {
 		updateChat();
-		CHATS_DIV = $("#chats");
+		CHATS_DIV = document.getElementById("chats");
 	}
 	
 	function scrollToBottom() {

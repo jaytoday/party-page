@@ -19,10 +19,12 @@ $partyPage = {
             }
             setTimeout("$partyPage.initJQuery()", 50);
         } else {
-            jQuery(function() { 
-                    $partyPage.init(); 
-            });
-                               
+             $.noConflict();
+              jQuery(document).ready(function(){
+                // Code that uses jQuery's $ can follow here.
+                $partyPage.init(); 
+              });
+                                  
         }
             
     },
@@ -56,14 +58,14 @@ $partyPage = {
 	$partyPage.chatTab.toggle(
 	    expand,collapse);   
 	function expand(){
-		$(this).animate({marginRight:"400px"}, 200);
+		jQuery(this).animate({marginRight:"400px"}, 200);
 		$partyPage.chatWrapper.animate({ 
 			width: "400px"
 		}, 200);
 		$partyPage.chatIframe.show();		
 	}
 	function collapse(){
-  	        $(this).animate({marginRight:"0px"}, 200);
+  	        jQuery(this).animate({marginRight:"0px"}, 200);
 		$partyPage.chatWrapper.animate({
 			width:"0px"
 		}, 200);

@@ -21,7 +21,6 @@ function downloadScript(url) {
 
 /* This is the main program entry after the page loads completely. */
 function highlightUser(me, div) {
-    console.log(me, div.childNodes);
 	if (me == '') return;
     var meFinder = new RegExp('@' + me);
     var highlighting = {
