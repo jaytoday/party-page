@@ -9,7 +9,8 @@
     <script type="text/javascript">
     var CURRENT_USER = '{{ user.nickname }}';
     var CHATS_DIV = null;
-    var this_url = encodeURIComponent(window.location.href.split('?')[0]);
+    var this_url = getQueryParams(window.location.search)['url'];
+
 
 
 	function onChatsReturned(responseText, status) {

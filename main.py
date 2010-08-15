@@ -124,8 +124,7 @@ class ChatsRequestHandler(BaseRequestHandler):
       chatsList = pickle.loads(chatsString)
       if chatsList and len(chatsList) >= 40:
         chatsList.pop(0)
-    chatsList.append(chat)
-    chatsList.reverse()
+    chatsList.insert(0, chat)
     if not memcache.set(self.MEMCACHE_KEY + str(chat.session.key()), pickle.dumps(chatsList)):
         logging.debug("Memcache set failed:")  
 

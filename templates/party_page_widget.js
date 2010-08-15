@@ -38,6 +38,7 @@ $partyPage = {
 
     init: function(){
 
+        var this_url = encodeURIComponent(window.location.href.split('?')[0]);
         $partyPage.loadStyles();
         
         $partyPage.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
@@ -45,7 +46,8 @@ $partyPage = {
         if ('{{ login_url }}')
             $partyPage.chatWrapper.html('<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>');
         else 
-            $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe"</div>');
+            $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='
+            + this_url + '"</div>');
              
         jQuery("body").append($partyPage.chatWrapper);
         jQuery("body").append($partyPage.chatTab);

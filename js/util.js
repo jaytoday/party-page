@@ -1,3 +1,17 @@
+function getQueryParams( val ) {
+        //Use the window.location.search if we don't have a val.
+        var query = val || window.location.search;
+        query = query.split('?')[1]
+        var pairs = query.split('&');
+        var retval = {};
+        var check = [];
+        for( var i = 0; i < pairs.length; i++ ) {
+                check = pairs[i].split('=');
+                retval[decodeURIComponent(check[0])] = decodeURIComponent(check[1]);
+        }
+
+        return retval;
+}
 
 function downloadScript(url) {
   var script = document.createElement('script');
