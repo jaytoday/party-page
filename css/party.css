@@ -57,6 +57,7 @@ z-index:2;
 	max-width:530px;
 	min-height:40px;
 	color:#000000;
+	clear: both;
 	font-size:26px;	
 	margin: 10px;
 	padding: 10px;
@@ -70,6 +71,7 @@ z-index:2;
 	top: 10px;
 	left: 30%;
 	position: relative;
+	clear: both;
 	font-family: 'IM Fell Great Primer SC', airal, serif;
 	font-size: 300%;
 	color: white;
@@ -93,14 +95,16 @@ z-index:2;
 }
 .content
 {
-	display: none;
+	display: block;
+	position: relative;
+	overflow: hidden;
 	height: 0;
+	-webkit-transition: all .2s ease;
 }
 .content:target
 {
+	display: block;
 	float: left;
 	clear: both;
-	display: block;
-	background: #eee;
-	height: 60;
+	height: 100px;
 }
