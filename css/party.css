@@ -53,6 +53,7 @@ z-index:2;
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CAD5EB), to(#E8EDFF));
 	-webkit-border-radius: 10px;
 	-webkit-box-shadow: 0 5px 5px -3px black;
+	font-family: 'IM Fell Great Primer SC', airal, serif;
 	max-width:530px;
 	min-height:40px;
 	color:#000000;
@@ -89,4 +90,17 @@ z-index:2;
 {
 	-webkit-transform: rotate(20deg) translate(-120px, -30px);
 	z-index: 200;
+}
+.content
+{
+	display: none;
+	height: 0;
+}
+.content:target
+{
+	float: left;
+	clear: both;
+	display: block;
+	background: #eee;
+	height: 60;
 }
