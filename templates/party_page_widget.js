@@ -79,8 +79,8 @@ function getQueryParams( val ) {
         }
         return retval;
 }
-var this_url = getQueryParams(window.location.search)['url'];
-callContentScript(msg){
+var this_url = getQueryParams(window.location.href)['url'];
+function callContentScript(msg){
 	$.ajax({
 	  url: 'http://localhost:8080/getchats',
 	  type: "POST",
@@ -89,6 +89,6 @@ callContentScript(msg){
 		content: msg,  
 		url: this_url
 	   },
-	  success: function(x){console.log(x)}
+	  success: function(x){console.log(x);}
 	});
 }
