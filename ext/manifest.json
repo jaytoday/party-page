@@ -19,7 +19,8 @@
 	[
 		{
 			"matches":["http://*/*"],
-			"js":["embed.js","drag.js"]
+			"js":["embed.js","drag.js"],
+			"runat":"document_end"
 		}
 	],
 	"options_page": "partyoptions.html",

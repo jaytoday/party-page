@@ -6,3 +6,7 @@ var party_script = document.createElement("script");
 party_script.src = host + "party-page-js";
 party_wrapper.appendChild(party_script);
 document.getElementsByTagName("body")[0].appendChild(party_wrapper);
+console.log('embed')
+function testCross(){
+	console.log("Cross Called");
+}
