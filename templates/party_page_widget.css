@@ -1,12 +1,14 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
+#chat_wrapper html, #chat_wrapper body, #chat_wrapper div, #chat_wrapper span, #chat_wrapper applet, #chat_wrapper object, #chat_wrapper iframe,
+h1, #chat_wrapper h2, #chat_wrapper h3, #chat_wrapper h4, #chat_wrapper h5, #chat_wrapper h6, #chat_wrapper p, #chat_wrapper blockquote, #chat_wrapper pre,
+a, #chat_wrapper abbr, #chat_wrapper acronym, #chat_wrapper address, #chat_wrapper big, #chat_wrapper cite, #chat_wrapper code,
+del, #chat_wrapper dfn, #chat_wrapper em, #chat_wrapper font, #chat_wrapper img, #chat_wrapper ins, #chat_wrapper kbd, #chat_wrapper q, #chat_wrapper s, #chat_wrapper samp,
+small, #chat_wrapper strike, #chat_wrapper strong, #chat_wrapper sub, #chat_wrapper sup, #chat_wrapper tt, #chat_wrapper var,
+b, #chat_wrapper u, #chat_wrapper i, #chat_wrapper center,
+dl, #chat_wrapper dt, #chat_wrapper dd, #chat_wrapper ol, #chat_wrapper ul, #chat_wrapper li,
+fieldset, #chat_wrapper form, #chat_wrapper label, #chat_wrapper legend,
+table, #chat_wrapper caption, #chat_wrapper tbody, #chat_wrapper tfoot, #chat_wrapper thead, 
+#chat_wrapper tr, #chat_wrapper th, #chat_wrapper td,
+#chat_tab, #chat_wrapper {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -15,36 +17,36 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	vertical-align: baseline;
 	background: transparent;
 }
-body {
+#chat_wrapper body {
 	line-height: 1;
 }
-ol, ul {
+#chat_wrapper ol, #chat_wrapper ul {
 	list-style: none;
 }
-blockquote, q {
+#chat_wrapper blockquote, #chat_wrapper q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+#chat_wrapper blockquote:before, #chat_wrapper blockquote:after,
+q:before, #chat_wrapper q:after {
 	content: '';
 	content: none;
 }
 
 /* remember to define focus styles! */
-:focus {
+#chat_wrapper :focus {
 	outline: 0;
 }
 
 /* remember to highlight inserts somehow! */
-ins {
+#chat_wrapper ins {
 	text-decoration: none;
 }
-del {
+#chat_wrapper del {
 	text-decoration: line-through;
 }
 
 /* tables still need 'cellspacing="0"' in the markup */
-table {
+#chat_wrapper table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
@@ -55,10 +57,11 @@ table {
   src: local('IM Fell Great Primer SC'), url('http://themes.googleusercontent.com/font?kit=A313vRj97hMMGFjt6rgSJuSNO5Eaym6LWE3jyfXmerw') format('truetype');
 }
 
-iframe
+#chat_wrapper iframe
 {
 	border: none;
 }
+
 
 #chat_tab{
 	position:fixed;

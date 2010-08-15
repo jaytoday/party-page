@@ -2,40 +2,40 @@
 
 var jQueryScriptOutputted = false;
 
-$partyPage = {
+$pageParty = {
 
     init: function(){
 
         var this_url = encodeURIComponent(window.location.href.split('?')[0]);
-        $partyPage.loadStyles();
+        $pageParty.loadStyles();
         
-        $partyPage.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
-        $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
+        $pageParty.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
+        $pageParty.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}'){
-            $partyPage.chatWrapper.html('<div><a href="{{ login_url }}">Click Here to Login</a></div>');
+            $pageParty.chatWrapper.html('<div id="login_required"><a href="{{ login_url }}">Click Here to Login</a></div>');
         }else 
-            $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='
+            $pageParty.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='
             + this_url + '"</div>');
              
-        jQuery("body").append($partyPage.chatWrapper);
-        jQuery("body").append($partyPage.chatTab);
-	$partyPage.chatIframe = jQuery("#chat_iframe");
-	$partyPage.chatIframe.hide();
-	$partyPage.chatTab.toggle(
+        jQuery("body").append($pageParty.chatWrapper);
+        jQuery("body").append($pageParty.chatTab);
+	$pageParty.chatIframe = jQuery("#chat_iframe");
+	$pageParty.chatIframe.hide();
+	$pageParty.chatTab.toggle(
 	    expand,collapse);   
 	function expand(){
 		jQuery(this).animate({marginRight:"400px"}, 200);
-		$partyPage.chatWrapper.animate({ 
+		$pageParty.chatWrapper.animate({ 
 			width: "400px"
 		}, 200);
-		$partyPage.chatIframe.show();		
+		$pageParty.chatIframe.show();		
 	}
 	function collapse(){
   	        jQuery(this).animate({marginRight:"0px"}, 200);
-		$partyPage.chatWrapper.animate({
+		$pageParty.chatWrapper.animate({
 			width:"0px"
 		}, 200);
-		$partyPage.chatIframe.hide();
+		$pageParty.chatIframe.hide();
 	}
 },
 
@@ -50,7 +50,7 @@ $partyPage = {
 
 };
 
-$partyPage.init();
+if (!$pageParty) $pageParty.init();
 
 
 
