@@ -29,7 +29,7 @@ iframe
 	-webkit-transition-property: right;
 }
 
-#chat_tab span
+#chat_tab span.inner
 {
 	position: relative;
 	display: block;
@@ -42,7 +42,7 @@ iframe
 }
 
 
-#chat_tab span
+#chat_tab span.inner span
 {
     font-size: 23px;
     padding:3px;
@@ -51,7 +51,7 @@ iframe
 #chat_wrapper{
 	position:fixed;
 	right: 0px;
-	top: 0px;
+	top: 2px;
 	width: 0px;
 	height: 99%;
 	background-color:rgba(0, 176, 216, 0.1);

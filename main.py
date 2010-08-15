@@ -212,6 +212,7 @@ application = webapp.WSGIApplication(
                                      [('/', MainRequestHandler),
                                       ('/iframe', MainRequestHandler),
                                       ('/embed', EmbedRequestHandler),
+                                      ('/embed2', EmbedRequestHandler),
                                       ('/party-page-js', WidgetJSHandler),
                                       ('/getchats', ChatsRequestHandler),
                                       ('/user/([^/]+)', UserProfileHandler),

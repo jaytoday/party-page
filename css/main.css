@@ -54,6 +54,7 @@ ul#userbar li a:hover{
 	padding:8px;
 	background-color:#fff;	
 	overflow:auto;
+	margin-bottom:5px;
 	height:85%;
 	border:solid 1px #fff;
 	clear:both;
@@ -134,6 +135,9 @@ h2{
 }
 .chat strong.nickname{}
 .chat strong.nickname a{}
+.chat .timestamp{
+	display:none;
+}
 .chat .timestamp{
 	display:none;
 }

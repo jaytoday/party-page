@@ -32,7 +32,7 @@
 		if (status == 200) {
 		  if (CHATS_DIV.innerHTML != responseText){
 			  CHATS_DIV.innerHTML = responseText;
-			  scrollToBottom();
+			  //scrollToBottom();
 			  highlightUser(CURRENT_USER, CHATS_DIV);
 			  makeLinks(CHATS_DIV);		  
 		  }
@@ -70,6 +70,8 @@
  </form>
 	
     <div id="chats"></div>
+	
+	<button>Change Rooms</button>&nbsp;<button>Send Invites
 	
 
 

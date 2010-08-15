@@ -5,7 +5,7 @@
 {% else %}
    	<strong class="nickname">Guest:</strong>
 {% endif %}
-	<div class="timestamp">({{ chat.date }})</div>
+	<div class="timestamp">({{ chat.date }})</div> {# TODO: only show if 2 minutes has passed #}
 	<div class="content">{{ chat.content|escape }}</div>
 </div> 
 {% endfor %}

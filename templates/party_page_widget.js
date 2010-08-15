@@ -40,7 +40,7 @@ $partyPage = {
 
         $partyPage.loadStyles();
         
-        $partyPage.chatTab = jQuery('<div id="chat_tab"><span>PARTY</span></div>');
+        $partyPage.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
         $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}')
             $partyPage.chatWrapper.html('<div><a href="{{ login_url }}continue=' + window.location.href + '">Click Here to Login</a></div>');
