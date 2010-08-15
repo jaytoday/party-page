@@ -72,7 +72,8 @@ class IndexRequestHandler(BaseRequestHandler):
 class iFrameRequestHandler(BaseRequestHandler):
 
   def get(self):
-    self.response.out.write(self.generate('iframe.html'))
+    self.response.out.write(self.generate('iframe.html',
+    { "user": users.get_current_user() }))
     
 class EmbedRequestHandler(BaseRequestHandler):
 
@@ -211,17 +212,31 @@ class UserProfileHandler(BaseRequestHandler):
     self.response.out.write(self.generate('user.html', template_values={'queried_user': user}))
 
     
-class EventFormHandler(BaseRequestHandler):
+class SendInvitesHandler(BaseRequestHandler):
     """ Process posted event form 
     """
     def post(self):
         from google.appengine.api import mail
-        invites = [self.request.get('invites')]
-        for invitee in invites:
-            mail.send_mail(sender="Example.com Support <support@example.com>",
-                      to="Albert Johnson <Albert.Johnson@example.com>",
-                      subject="Your account has been approved",
-                      body="Email Body")
+        emails = self.request.get('emails').split(',')
+        for invite_email in emails:
+            mail.send_mail(sender=self.request.get('user'),
+                      to=invite_email,
+                      subject="You're invited to a party!",
+                      body="""
+                      
+                      Hey, you're invited to a party on a webpage!
+                      
+                      Visit this web address to join:
+                      
+                      %s
+                      
+                      If you don't see a "party!" tab on the right side of the page, 
+                      make sure you're using the Google Chrome browser and 
+                      install the Party Page! extension from this address:
+                      
+                      %s
+                      
+                      """ % (self.request.get("url"), "http://ilovelamas.com"))
 
 
 class JsonHandler(BaseRequestHandler):
@@ -236,6 +251,7 @@ application = webapp.WSGIApplication(
                                       ('/embed2', EmbedRequestHandler),
                                       ('/party-page-js', WidgetJSHandler),
                                       ('/getchats', ChatsRequestHandler),
+                                      ('/sendinvites', SendInvitesHandler),
                                       ('/user/([^/]+)', UserProfileHandler),
                                       ('/edituser/([^/]+)', EditUserProfileHandler),
                                       ('/json', JsonHandler),],

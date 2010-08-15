@@ -191,7 +191,7 @@ h2{
 	font-size:12px;
 	line-height:1.5em;
 	padding:1px 1px 1px 1px;
-	margin:0 0 2px 0;
+	margin:0 0 5px;
 	width: 100%;
 }
 .chat .user_picture {
@@ -226,3 +226,17 @@ iframe
  	color: #999999;
 }
 input { border-radius: 6px; outline:none;}
+
+
+#chat_container{
+    height: 98%;
+}
+
+#invite_container{
+    margin: 15px;
+}
+
+#invite_container input{
+    width:200px;
+    margin:5px;
+}

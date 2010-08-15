@@ -123,12 +123,15 @@
 					emails.push($(this).val());
 			});
 			
+			$(this).val('');
+			
 			$.ajax({
 			  url: '/sendinvites',
 			  type: "POST",
 			  dataType: "json",	
 			  data: {
-				user: "username",
+				user: "{{ user.email }}",
+				url: window.location.href,
 				emails: emails.join(",")
 			   },
 			  success: function(){ }
@@ -138,6 +141,11 @@
 			$('#invite_container').hide();
 			$('#chat_container').show();
 			
+		});
+
+		$('#invite_container').find('button#cancel').click(function(){		
+			$('#invite_container').hide();
+			$('#chat_container').show();			
 		});
 		
 		$("body").ondragenter = DONOTHING;
@@ -152,17 +160,17 @@
   </head>                                                                                     
   <body onload="setup()">
   <div class="wrapper">
-	<form id="send-chat-form" action="javascript:sendChat();">
-      	<div class="form-item">
-	  		<input placeholder="Enter some freaking text already..." type="text" name="content" class="form-textfield" id="chattext" />
-			{#<br/><input type="submit" class="form-submit" value="Send" /> #}
-			<br/>
-			{#<input type="submit" class="form-submit" value="Send" />#}
-			<input type="button" style="display:none;" id="form-refresh" value="Refresh" onclick="forceUpdate()" />
-		</div>	
- </form>
-	
-    <div id="chat_container">
+	<div id="chat_container">
+		<form id="send-chat-form" action="javascript:sendChat();">
+	      	<div class="form-item">
+		  		<input placeholder="Enter some freaking text already..." type="text" name="content" class="form-textfield" id="chattext" />
+				{#<br/><input type="submit" class="form-submit" value="Send" /> #}
+				<br/>
+				{#<input type="submit" class="form-submit" value="Send" />#}
+				<input type="button" style="display:none;" id="form-refresh" value="Refresh" onclick="forceUpdate()" />
+			</div>	
+	 </form>
+    
 		<div id="chats"></div>
 		<button id="send_invites">Send Invites</button>
 	</div>
@@ -172,7 +180,9 @@
 		<br/><input type="text" placeholder="enter an email address...">
 		<br/><input type="text" placeholder="enter an email address...">
 		</div>
-		<button id="add">Add More</button>&nbsp;<button id="send">Send Invitations</button>
+		<button id="add">Add More</button>
+		&nbsp;<button id="send">Send Invitations</button>
+		&nbsp;<button id="cancel">Cancel</button>
 	</div>
 	
 	<div id="options" style="display:none;">
