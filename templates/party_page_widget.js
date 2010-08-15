@@ -82,7 +82,7 @@ function getQueryParams( val ) {
 var this_url = getQueryParams(window.location.href)['url'];
 function callContentScript(msg){
 	$.ajax({
-	  url: 'http://localhost:8080/getchats',
+	  url: 'http://party-page.appspot.com/getchats',
 	  type: "POST",
 	  dataType: "html",	
 	  data: {
