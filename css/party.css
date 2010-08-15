@@ -53,14 +53,39 @@ z-index:2;
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CAD5EB), to(#E8EDFF));
 	-webkit-border-radius: 10px;
 	-webkit-box-shadow: 0 5px 5px -3px black;
+	font-family: 'IM Fell Great Primer SC', airal, serif;
 	max-width:530px;
 	min-height:40px;
 	color:#000000;
+	clear: both;
 	font-size:26px;	
 	margin: 10px;
 	padding: 10px;
 }
-
+.main_text_inner a:link
+{
+	text-decoration: none;
+	text-shadow: #000000 0px -1px 3px;
+	color: white;
+}
+.main_text_inner a:hover
+{
+	text-decoration: none;
+	text-shadow: #000000 0px 1px 3px;
+	color: white;
+}
+.main_text_inner a:visited
+{
+	text-decoration: none;
+	text-shadow: #000000 0px 0px 3px;
+	color: white;
+}
+.main_text_inner a:visited
+{
+	text-decoration: none;
+	text-shadow: #000000 0px 0px 3px;
+	color: white;
+}
 .chat_tab_big
 {
 	float: left;
@@ -69,6 +94,7 @@ z-index:2;
 	top: 10px;
 	left: 30%;
 	position: relative;
+	clear: both;
 	font-family: 'IM Fell Great Primer SC', airal, serif;
 	font-size: 300%;
 	color: white;
@@ -89,4 +115,21 @@ z-index:2;
 {
 	-webkit-transform: rotate(20deg) translate(-120px, -30px);
 	z-index: 200;
+}
+.content
+{
+	display: block;
+	position: relative;
+	overflow: hidden;
+	height: 0;
+	-webkit-transition: all .2s ease;
+	font-size: 50%;
+}
+.content:target
+{
+	display: block;
+	float: left;
+	clear: both;
+	height: auto;
+	overflow: auto;
 }
