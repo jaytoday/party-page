@@ -64,11 +64,15 @@ a{
 }
 
 /* Wrapper for chat box & form */
-.wrapper{
+.wrapper, .user_wrapper{
 	text-align:left;
 	margin:0 auto 0 auto;
 	width:98%;
 	height:100%;
+}
+
+.user_wrapper{
+	background:#EEE;
 }
 
 /* User bar with logout/login, username, etc */
