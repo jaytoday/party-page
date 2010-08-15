@@ -62,7 +62,30 @@ z-index:2;
 	margin: 10px;
 	padding: 10px;
 }
-
+.main_text_inner a:link
+{
+	text-decoration: none;
+	text-shadow: #000000 0px -1px 3px;
+	color: white;
+}
+.main_text_inner a:hover
+{
+	text-decoration: none;
+	text-shadow: #000000 0px 1px 3px;
+	color: white;
+}
+.main_text_inner a:visited
+{
+	text-decoration: none;
+	text-shadow: #000000 0px 0px 3px;
+	color: white;
+}
+.main_text_inner a:visited
+{
+	text-decoration: none;
+	text-shadow: #000000 0px 0px 3px;
+	color: white;
+}
 .chat_tab_big
 {
 	float: left;
@@ -107,7 +130,6 @@ z-index:2;
 	display: block;
 	float: left;
 	clear: both;
-	min-height: 100px;
 	height: auto;
 	overflow: auto;
 }
