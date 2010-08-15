@@ -7,6 +7,14 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
 	<script src="/js/util.js" type="text/javascript"></script>
     <script type="text/javascript">
+    function DONOTHING(){
+	e.preventDefault();
+    };
+    function urlDrop(e)
+    {
+	var urlDrop = e.dataTransfer.getData("text/plain");
+	console.log(urlDrop);
+    }
     var CURRENT_USER = '{{ user.nickname }}';
     var CHATS_DIV = null;
     var this_url = getQueryParams(window.location.search)['url'];
@@ -80,7 +88,10 @@
 						$('#change_room').find('input#room_name').val('');
 					}
 			});
-		})
+		})		
+		$("body").ondragenter = DONOTHING;
+		$("body").ondragover = DONOTHING;
+		$("body").ondrop = urlDrop;
 	});
 	
 	

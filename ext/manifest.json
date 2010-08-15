@@ -19,7 +19,7 @@
 	[
 		{
 			"matches":["http://*/*"],
-			"js":["embed.js"]
+			"js":["embed.js","drag.js"]
 		}
 	],
 	"options_page": "partyoptions.html",
