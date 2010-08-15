@@ -87,7 +87,7 @@ q:before, #chat_wrapper q:after {
 	-webkit-box-shadow: 0px 1px 3px #000;
 	-webkit-transition-duration: 0.2s;
 	-webkit-transition-property: right;
-	z-index: 1000;
+	z-index: 271828;
 }
 
 #chat_tab span.inner
