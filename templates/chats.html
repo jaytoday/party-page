@@ -10,7 +10,7 @@
 {% else %}
    	<strong class="nickname">Guest:</strong>
 {% endif %}
-	<div class="content">{{ chat.content|escape }}. I like making sweet love to Peruvian lamas.</div>
+	<div class="content">{{ chat.content|escape }}<!-- . I like making sweet love to Peruvian lamas. --></div>
 	<div class="timestamp">&nbsp; {{ chat.natural_date }}</div> {# TODO: only show if 2 minutes has passed #}
 </div> 
 {% endfor %}
