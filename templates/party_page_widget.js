@@ -12,11 +12,7 @@ $partyPage = {
         $partyPage.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
         $partyPage.chatWrapper = jQuery('<div id="chat_wrapper"></div>');
         if ('{{ login_url }}'){
-            var login_url = '{{ login_url }}';
-            var continue_val = getQueryParams(login_url)['continue'];
-            login_url = decodeURIComponent(login_url).replace(continue_val, window.location.href);
-            
-            $partyPage.chatWrapper.html('<div><a href="' + login_url + '">Click Here to Login</a></div>');
+            $partyPage.chatWrapper.html('<div><a href="{{ login_url }}">Click Here to Login</a></div>');
         }else 
             $partyPage.chatWrapper.html('<div id="party_page_wrapper"><iframe id="chat_iframe" src="{{ SERVER_HOST }}/iframe?url='
             + this_url + '"</div>');
