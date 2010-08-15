@@ -5,10 +5,9 @@ var jQueryScriptOutputted = false;
 
 $pageParty = {
 
-    started: false,
     
     init: function(){
-
+        
         var this_url = encodeURIComponent(window.location.href.split('?')[0]);
         $pageParty.loadStyles();
         $pageParty.chatTab = jQuery('<div id="chat_tab"><span class="inner">PARTY<span>!</span></span></div>');
@@ -39,8 +38,7 @@ $pageParty = {
 		}, 200);
 		$pageParty.chatIframe.hide();
 	}
-	
-    $pageParty.started = true;
+
 },
 
 // inject quiz css into the document head
@@ -54,8 +52,7 @@ $pageParty = {
 
 };
 
-// check  
-//document.$pageParty = $pageParty;
+$pageParty.init();
 
 function getQueryParams( val ) {
         //Use the window.location.search if we don't have a val.
