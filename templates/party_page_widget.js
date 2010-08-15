@@ -16,13 +16,14 @@ $partyPage = {
                 document.write('<script type="text/javascript"'
                 + ' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js">'
                 + '</script>');
-            }
+            }else{
+                jQuery.noConflict();		    
+	    }
             setTimeout("$partyPage.initJQuery()", 50);
         } else {
              
               jQuery(document).ready(function(){
                 // Code that uses jQuery's $ can follow here.
-                jQuery.noConflict();
                 $partyPage.init(); 
               });
                                   
