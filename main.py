@@ -119,12 +119,12 @@ class ChatsRequestHandler(BaseRequestHandler):
     author = users.get_current_user()
     if author:
       chat.author = author
-    
-    cfs = ['', 'I love you! I have always loved you. There. I said it.', '', 
-      ' I sometimes wear a bowtie in the shower.', '', 'My spirit animal is a nudist pirate named Karl.', 
-      '', 'Just shut up. I am so sick and tired of you. SERIOUSLY. ', '', 'my ding ding hurts', '', 
-      ' Do u w4nna cyb3r?', '', 'I have eight husbands and a one legged parakeet.', 
-      '', 'I like making sweet love to Peruvian lamas.', ''] 
+    cfs = ['']
+    #cfs = ['', 'I love you! I have always loved you. There. I said it.', '', 
+    # ' I sometimes wear a bowtie in the shower.', '', 'My spirit animal is a nudist pirate named Karl.', 
+    # '', 'Just shut up. I am so sick and tired of you. SERIOUSLY. ', '', 'my ding ding hurts', '', 
+    # ' Do u w4nna cyb3r?', '', 'I have eight husbands and a one legged parakeet.', 
+    # '', 'I like making sweet love to Peruvian lamas.', ''] 
     import random
     c = random.choice(cfs)
     chat.content = self.request.get('content') + ' ' + c
@@ -243,7 +243,7 @@ class SendInvitesHandler(BaseRequestHandler):
                       
                       %s
                       
-                      """ % (self.request.get("url"), "http://ilovelamas.com"))
+                      """ % (self.request.get("url"), "http://page-party.appspot.com"))
 
 
 class JsonHandler(BaseRequestHandler):
