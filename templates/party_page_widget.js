@@ -19,9 +19,10 @@ $partyPage = {
             }
             setTimeout("$partyPage.initJQuery()", 50);
         } else {
-             $.noConflict();
+             
               jQuery(document).ready(function(){
                 // Code that uses jQuery's $ can follow here.
+                jQuery.noConflict();
                 $partyPage.init(); 
               });
                                   
