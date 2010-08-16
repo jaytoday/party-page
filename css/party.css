@@ -12,7 +12,7 @@ position:absolute;
 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#434343), to(#323232));
 width:600px;
 height:40px;
-left: 330px;
+left: 30%;
 top: 10px;
 color:#FFFFFF;
 font-family: 'IM Fell Great Primer SC', arial, serif;
@@ -32,7 +32,7 @@ position:absolute;
 background-image:url(party_64.png);
 width:145px;
 height:149px;
-left:1000px;
+left:80%px;
 top:10px;
 }
 #main_text{
@@ -41,7 +41,7 @@ position:absolute;
 
 width:560px;
 /* height:600px; */
-left: 350px;
+left: 20%;
 top: 88px;
 color:#FFFFFF;
 font-family:Arial, Helvetica, sans-serif;
