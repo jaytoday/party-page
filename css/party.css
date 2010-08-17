@@ -32,7 +32,7 @@ position:absolute;
 background-image:url(party_64.png);
 width:145px;
 height:149px;
-left:80%px;
+left:66%;
 top:10px;
 }
 #main_text{
@@ -76,25 +76,22 @@ z-index:2;
 .main_text_inner a:link
 {
 	text-decoration: none;
-	text-shadow: #000000 0px -1px 3px;
 	color: white;
 }
 .main_text_inner a:hover
 {
 	text-decoration: none;
-	text-shadow: #000000 0px 1px 3px;
+	/*text-shadow: #000000 0px 1px 3px;*/
 	color: white;
 }
 .main_text_inner a:visited
 {
 	text-decoration: none;
-	text-shadow: #000000 0px 0px 3px;
 	color: white;
 }
 .main_text_inner a:visited
 {
 	text-decoration: none;
-	text-shadow: #000000 0px 0px 3px;
 	color: white;
 }
 .chat_tab_big
