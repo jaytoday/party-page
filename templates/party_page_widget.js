@@ -1,7 +1,7 @@
 {% include "jquery.js" %}
 
 var jQueryScriptOutputted = false;
-
+//santosh
 $pageParty = {
 
     
