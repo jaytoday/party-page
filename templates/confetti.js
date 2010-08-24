@@ -1,12 +1,12 @@
 	/* Define the number of confettis to be used in the animation */
-	const CONFETTIS = 20;
+	const CONFETTIS = 200;
  
 	function init() {
 		
 		/* Fill the empty container with freshly driven confetti */
 		var first = true;
 		for (var i = 0; i < CONFETTIS; i++) {
-			document.body.appendChild(makeConfetti(first));
+			document.body.appendChild(makeConfetti(first, i));
 			first = false;
 		}
 	}
@@ -36,17 +36,16 @@
 		return value + 's';
 	}
  
-	function makeConfetti(is_first) {
+	function makeConfetti(is_first, i) {
 		var confettis = ['2730', '272F', '272B', '272C', '2727', '2729'];
-		var colors = ['red','blue','green','red','yellow','purple','pink','lightGreen','lightBlue'];
+		var colors = ['white','black','grey','red','yellow','blue'];
 		var sizes = ['tiny', 'tiny', 'tiny', 'small', 'small', 'small', 'small', 'medium', 'medium', 'medium', 'medium', 'medium', 'medium', 'large', 'massive'];
- 
 		/* Start by creating a wrapper div, and an empty span  */
 		var confettiElement = document.createElement('div');
 		confettiElement.className = 'confetti ' + randomItem(sizes);
- 
+		confettiElement.id = "confetti" +  i;
 		var confetti = document.createElement('span');
-		confetti.innerHTML = '&#x' + randomItem(confettis) + ';';
+		confetti.innerHTML = "!";
 		confetti.style.color = randomItem(colors);
  
 		confettiElement.appendChild(confetti);

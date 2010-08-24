@@ -26,12 +26,14 @@ class BaseRequestHandler(webapp.RequestHandler):
      in response to a web request
   """
   def json(self, obj):
-    user = users.get_current_user()
-    if user:
-      log_in_out_url = users.create_logout_url('/')
-    else:
-      log_in_out_url = users.create_login_url(self.request.path)
-    return simplejson.dumps(obj)
+    """Json takes an object and returns it through the response object of the
+       current request.
+       
+       Args:
+            obj is the object we are going to send. It should be fully ready to get 
+            converted into json and sent down.          
+    """
+    self.response.out.write(simplejson.dumps(obj))
 
   def generate(self, template_name, template_values={}):
     """Generate takes renders and HTML template along with values
@@ -256,7 +258,7 @@ class SendInvitesHandler(BaseRequestHandler):
 
 class JsonHandler(BaseRequestHandler):
     def get(self):
-        self.response.out.write(self.json({'success':True, 'message':'Hello World'}))
+        self.json({'success':True, 'message':'Hello World'})
 
                                                 
 application = webapp.WSGIApplication(
