@@ -15,7 +15,6 @@ from google.appengine.api import memcache
 from django.utils import simplejson
 
 import models
-
 # Set the debug level
 _DEBUG = True
 
@@ -277,5 +276,6 @@ application = webapp.WSGIApplication(
 def main():
   run_wsgi_app(application)
 
+template.register_template_library('gravatar')
 if __name__ == "__main__":
   main()

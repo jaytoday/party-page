@@ -1,7 +1,7 @@
 {% for chat in chats %}
 <div class="chat"> 	
-{% if chat.author.picture %}
-	<img src='{{chat.author.picture}}' class="user_picture"/>
+{% if chat.author.email %}
+	{% gravatar chat.author.email %}
 {% else %}
 	<img src='/img/party_32.png' class="user_picture"/>
 {% endif %}

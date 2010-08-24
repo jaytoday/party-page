@@ -15,14 +15,7 @@
 		"default_title": "Party Time!"
 	},
 	"background_page": "partybackground.html",
-	"content_scripts": 
-	[
-		{
-			"matches":["http://*/*"],
-			"js":["embed.js","drag.js"],
-			"runat":"document_end"
-		}
-	],
+
 	"options_page": "partyoptions.html",
 	"permissions": 
 	[

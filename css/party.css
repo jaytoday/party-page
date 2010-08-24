@@ -1,11 +1,12 @@
 @charset "utf-8";
 html, body {
-height: 100%;
-margin: 0;
-padding: 0;
-text-align: center;
-background:#666666;
-overflow-x:hidden;
+  z-index: -1;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background:#666666;
+  overflow-x:hidden;
 }
 #header{
 position:absolute;
@@ -32,22 +33,23 @@ position:absolute;
 background-image:url(party_64.png);
 width:145px;
 height:149px;
-left:66%;
+left:80%;
 top:10px;
+z-index: 3;
 }
 #main_text{
-position:absolute;
- background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#323232), to(#434343)); 
-
-width:560px;
-/* height:600px; */
-left: 20%;
-top: 88px;
-color:#FFFFFF;
-font-family:Arial, Helvetica, sans-serif;
-font-size:26px;
-border-radius: 5px;
-border:3px solid white;
+  position:relative;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#323232), to(#434343)); 
+  width:560px;
+  /* height:600px; */
+  left: 20%;
+  top: 88px;
+  color:#FFFFFF;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:26px;
+  border-radius: 25px;
+  border:4px solid white;
+  z-index: 1;
 }
 #tab_head{
 position:absolute;
@@ -99,7 +101,7 @@ z-index:2;
 	float: left;
 	z-index: 200;
 	max-width: 400px;
-	top: 10px;
+	top: 11px;
 	left: 30%;
 	position: relative;
 	clear: both;
@@ -113,6 +115,7 @@ z-index:2;
 	border-right: solid 6px white;
 	border-bottom: none;
 	padding: 4px 10px;
+	z-index: 2;
 }
 .chat_tab_big span.inner
 {

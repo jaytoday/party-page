@@ -3,7 +3,7 @@
 		.confetti {
 			position: absolute;
 			text-align: center;
-			z-index: 9999;
+			z-index: 0;
 			top: -100px;
 			width: 1em;
 			height: 1em;
