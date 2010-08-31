@@ -1,19 +1,20 @@
 import cgi
 import os
+import sys
 import urllib, urllib2
 import logging
 import pickle
 
-
 from google.appengine.api import users
+from google.appengine.api import oauth
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 from google.appengine.api import memcache
-
+import gravatar
 from django.utils import simplejson
-
+from datetime import datetime
 import models
 # Set the debug level
 _DEBUG = True
@@ -46,11 +47,11 @@ class BaseRequestHandler(webapp.RequestHandler):
     """
     # We check if there is a current user and generate a login or logout URL
     user = users.get_current_user()
-
-    if user:
-      log_in_out_url = users.create_logout_url('/')
+    ouser = oauth.get_current_user()
+    if user or ouser:
+      log_in_out_url = users.create_logout_url('/') 
     else:
-      log_in_out_url = users.create_login_url(self.request.path)
+      log_in_out_url = users.create_login_url(self.request.path) #we need to shuttle them back where they came from in this instance
 
     # We'll display the user name if available and the URL on all pages
     values = {'user': user, 'log_in_out_url': log_in_out_url}
@@ -73,6 +74,7 @@ class IndexRequestHandler(BaseRequestHandler):
 class iFrameRequestHandler(BaseRequestHandler):
 
   def get(self):
+    user = users.get_current_user()
     self.response.out.write(self.generate('iframe.html',
     { "user": users.get_current_user() }))
     
@@ -173,7 +175,7 @@ class ChatsRequestHandler(BaseRequestHandler):
 
     
 class EditUserProfileHandler(BaseRequestHandler):
-  """This allows a user to edit his or her wiki profile.  The user can upload
+  """This allows a user to edit his or her profile.  The user can upload
      a picture and set a feed URL for personal data
   """
   def get(self, user):
@@ -229,39 +231,109 @@ class UserProfileHandler(BaseRequestHandler):
 
     
 class SendInvitesHandler(BaseRequestHandler):
-    """ Process posted event form 
-    """
-    def post(self):
-        from google.appengine.api import mail
-        emails = self.request.get('emails').split(',')
-        for invite_email in emails:
-            mail.send_mail(sender=self.request.get('user'),
-                      to=invite_email,
-                      subject="You're invited to a party!",
-                      body="""
-                      
-                      Hey, you're invited to a party on a webpage!
-                      
-                      Visit this web address to join:
-                      
-                      %s
-                      
-                      If you don't see a "party!" tab on the right side of the page, 
-                      make sure you're using the Google Chrome browser and 
-                      install the Party Page! extension from this address:
-                      
-                      %s
-                      
-                      """ % (self.request.get("url"), "http://page-party.appspot.com"))
+  """ Process posted event form 
+  """
+  def post(self):
+    from google.appengine.api import mail
+    emails = self.request.get('emails').split(',')
+    for invite_email in emails:
+      mail.send_mail(sender=self.request.get('user'),
+              to=invite_email,
+              subject="You're invited to a party!",
+              body="""
+              
+              Hey, you're invited to a party on a webpage!
+              
+              Visit this web address to join:
+              
+              %s
+              
+              If you don't see a "party!" tab on the right side of the page, 
+              make sure you're using the Google Chrome browser and 
+              install the Party Page! extension from this address:
+              
+              %s
+              
+              """ % (self.request.get("url"), "http://page-party.appspot.com"))
 
+class RPCHandler(webapp.RequestHandler):
+  def __init__(self):
+    webapp.RequestHandler.__init__(self)
+    self.methods = RPCMethods()
+  def post(self):
+    args = simplejson.loads(self.request.body)
+    func, args = args[0], args[1:]
+    
+    if func[0] == '_':
+      self.error(403)
+      return
+    func = getattr(self.methods, func, None)
+    if not func:
+      self.error(404)
+      return
+    result = func(self.request, *args)
+    self.response.out.write(simplejson.dumps(result))
 
-class JsonHandler(BaseRequestHandler):
-    def get(self):
-        self.json({'success':True, 'message':'Hello World'})
+class RPCMethods:
+  
+  def chat(self, request, domain, message):
+    chat = models.ChatMessage()
+    author = users.get_current_user() if users.get_current_user() else oauth.get_current_user()
+    if author:
+      chat.author = author
+    chat_url = urllib2.unquote(domain)
+    chat.content = message
+    chat.session = models.ChatSession.get(chat_url, author)
+    chat.put()
+    def chatToJson(x):
+      g = gravatar.gravatar(x.author.email(), json=True)
+      return {'id': x.key().id(),'author':{'nickname':x.author.nickname(),'email':x.author.email()},'thumb':g, 'content':x.content,'date':datetime.ctime(x.date)}
+    c = chatToJson(chat)
+    return({'success':True, 'message': c})
+    
+  def getchat(self,request, domain, timestamp = 0):
+    def to_datetime(js_timestamp):
+      return  datetime.fromtimestamp(js_timestamp/1000, None)
+    chat_url = urllib2.unquote(domain)
+    author = users.get_current_user()
+    # logging.info(chat_url)
+    session = models.ChatSession.get(chat_url, author)
+    try:
+      chats = models.ChatMessage.getsince(to_datetime(timestamp), session)
+      def chat_to_dict(x):
+        g = gravatar.gravatar(x.author.email(), json=True)
+        return {'author':{'nickname':x.author.nickname(),'email':x.author.email()},'thumb':g,'content':x.content, 'date':datetime.ctime(x.date), 'id':x.key().id()}
+      result = map(chat_to_dict, chats)
+      return {'success':True, 'result':result, 'query':{'date':timestamp,'url':domain}}
+    except:
+      return {'success':False, 'query':{'date':timestamp,'url':domain}, 'error':sys.exc_info()[1].message}
+  def sendmail(self,request, domain, *emails):
+    from google.appengine.api import mail
+    for invite_email in emails:
+      try:
+        mail.send_mail(sender=users.get_current_user().email(), to=invite_email, subject="You're invited to a party!", body="""
+          
+          Hey, you're invited to a party on a webpage!
+          
+          Visit this web address to join:
+          
+          %s
+          
+          If you don't see a "party!" tab on the right side of the page, 
+          make sure you're using the Google Chrome browser and 
+          install the Party Page! extension from this address:
+          
+          %s
+          
+          """ % (domain, "http://page-party.appspot.com"))
+        return{'success':True,'recipients':emails}
+      except:
+        return{'success':False,'error':sys.exc_info[1].message}
+      
 
-                                                
 application = webapp.WSGIApplication(
                                      [('/', IndexRequestHandler),
+                                      ('/rpc*', RPCHandler),
                                       ('/iframe', iFrameRequestHandler),
                                       ('/embed', EmbedRequestHandler),
                                       ('/embed2', EmbedRequestHandler),
@@ -269,8 +341,7 @@ application = webapp.WSGIApplication(
                                       ('/getchats', ChatsRequestHandler),
                                       ('/sendinvites', SendInvitesHandler),
                                       ('/user/([^/]+)', UserProfileHandler),
-                                      ('/edituser/([^/]+)', EditUserProfileHandler),
-                                      ('/json', JsonHandler),],
+                                      ('/edituser/([^/]+)', EditUserProfileHandler)],
                                      debug=True)
 
 def main():

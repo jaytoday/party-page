@@ -13,6 +13,8 @@ function getQueryParams( val ) {
         return retval;
 }
 
+
+
 function downloadScript(url) {
   var script = document.createElement('script');
   script.src = url;

@@ -42,3 +42,7 @@ class ChatMessage(db.Model):
   content = db.StringProperty(multiline=True)
   date = db.DateTimeProperty(auto_now_add=True)
   session = db.ReferenceProperty(ChatSession, required=False)
+  @classmethod
+  def getsince(cls, timestamp, session):
+    chats = cls.all().filter("date >", timestamp).filter("session =", session).fetch(100)
+    return chats

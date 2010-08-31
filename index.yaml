@@ -10,6 +10,16 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: ChatMessage
+  properties:
+  - name: session
+  - name: data
+
+- kind: ChatMessage
+  properties:
+  - name: session
+  - name: date
+
 - kind: Greeting
   properties:
   - name: date

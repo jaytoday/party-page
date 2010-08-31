@@ -2,200 +2,181 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-  	<title>Simple Ajax Chat</title>
+        <title>Simple Ajax Chat</title>
     <link type="text/css" rel="stylesheet" href="/css/main.css" media="screen" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
-	<script src="/js/util.js" type="text/javascript"></script>
+  </head>                                                                                     
+  <body onload="setup()">
+  <div class="wrapper">
+        <div id="chat_container">
+                <form id="send-chat-form" action="javascript:sendChat();">
+                <div class="form-item">
+                                <input placeholder="Enter some freaking text already..." type="text" name="content" class="form-textfield" id="chattext" />
+                                {#<br/><input type="submit" class="form-submit" value="Send" /> #}
+                                <br/>
+                                {#<input type="submit" class="form-submit" value="Send" />#}
+                                <input type="button" style="display:none;" id="form-refresh" value="Refresh" onclick="forceUpdate()" />
+                        </div>	
+         </form>
+    
+                <div id="chats">
+                  <div class="chat"></div>
+                </div>
+                <button id="send_invites">Send Invites</button>
+        </div>
+    <div id="invite_container" style="display:none;">
+                <div id="inputs">
+                <input type="text" placeholder="enter an email address...">
+                <br/><input type="text" placeholder="enter an email address...">
+                <br/><input type="text" placeholder="enter an email address...">
+                </div>
+                <button id="add">Add More</button>
+                &nbsp;<button id="send">Send Invitations</button>
+                &nbsp;<button id="cancel">Cancel</button>
+        </div>
+        
+        <div id="options" style="display:none;">
+                <span>Current Room: <span style="text-overflow:ellipsis;">{{ current_room }}</span></span>
+                &nbsp;<button id="room">Change Rooms</button>
+                {# &nbsp;<button id="send_invites">Send Invites</button> #}
+        </div>
+        <div id="change_room" style="display:none;">
+                <input id="room_name" placeholder="Enter room name..." style="width:150px;"/> 
+                <button id="continue">OK</button>&nbsp;<button id="cancel">Cancel</button>
+        </div>
+        
+  </div>  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+        <script src="/js/util.js" type="text/javascript"></script>
     <script type="text/javascript">
     var CURRENT_USER = '{{ user.nickname }}';
     var CHATS_DIV = null;
     var this_url = getQueryParams(window.location.search)['url'];
-	var DEFAULT_REFRESH_RATE = 1000;
-	var refresh_rate = DEFAULT_REFRESH_RATE;
-	var no_change = 0;
-
-	function DONOTHING(){
-		e.preventDefault();
-	    };
-	function urlDrop(e)
-	    {
-		var urlDrop = e.dataTransfer.getData("text/plain");
-		console.log(urlDrop);
-	    }
-
-	function onChatsReturned(responseText, status) {
-		var chats_el = $('<div></div>'); chats_el.html(responseText);
-		if (status == 'success') {
-		  if ($(CHATS_DIV).html() != chats_el.html()){
-			  $(CHATS_DIV).html(chats_el.html());
-			  highlightUser(CURRENT_USER, CHATS_DIV);
-			  makeLinks(CHATS_DIV);
-			  refresh_rate = DEFAULT_REFRESH_RATE;		  
-		  }else{
-				no_change++; 
-				if (no_change >= 30){
-					refresh_rate = refresh_rate * 10;
-					if (refresh_rate >= 30000)
-						$('#form-refresh').show();
-					no_change = 0;
-				}
-			}
-	    } 
-	    window.setTimeout("updateChat()", refresh_rate);
-	}
-	
-    function updateChat() {
-		$.ajax({
-		  url: '/getchats',
-		  type: "GET",
-		  dataType: "html",	
-		  data: {
-			url: this_url
-		   },
-		  success: onChatsReturned
-		});
-	};
-	
-	function sendChat(form) {
-	  if ($("#chattext").val()) {
-			$.ajax({
-			  url: '/getchats',
-			  type: "POST",
-			  dataType: "html",	
-			  data: {
-				content: $("#chattext").val(),  
-				url: this_url
-			   },
-			  success: onChatsReturned
-			});
-		
-			$("#chattext").val('');
-		
-		}
-	};
-
-
-	function setup() {
-		updateChat();
-		CHATS_DIV = document.getElementById("chats");
-	}
-	
-	function scrollToBottom() {
-	  CHATS_DIV.scrollTop = CHATS_DIV.scrollHeight;
-	}
-	
-	function forceUpdate(){
-		updateChat();
-		$('#form-refresh').hide();
-	}
-	
-	
-	$(function(){
-		$('button#room').click(function(){
-			$('#options').hide();
-			$('#change_room').show()
-			.find('button').click(function(){
-					$('#change_room').hide();
-					$('#options').show();
-	   			
-			var room_name = $('#change_room').find('input#room_name').val();
-			if (room_name && $(this).attr('id') == 'continue')
-					{
-						$('#change_room').find('input#room_name').val('');
-					}
-			});
-		});
-		
-		$('#send_invites').click(function(){
-			$('#chat_container').hide();
-			$('#invite_container').show();
-		});
-
-		$('#invite_container').find('button#add').click(function(){
-			$('#invite_container').find('#inputs').append('<br/><input type="text" '
-			+ 'placeholder="enter an email address...">');
-		});
-		
-		$('#invite_container').find('button#send').click(function(){
-			var emails = Array();
-			$('#invite_container').find('input').each(function(){
-				if ($(this).val()) 
-					emails.push($(this).val());
-			});
-			
-			$(this).val('');
-			
-			$.ajax({
-			  url: '/sendinvites',
-			  type: "POST",
-			  dataType: "json",	
-			  data: {
-				user: "{{ user.email }}",
-				url: this_url,
-				emails: emails.join(",")
-			   },
-			  success: function(){ }
-			});
-			
-						
-			$('#invite_container').hide();
-			$('#chat_container').show();
-			
-		});
-
-		$('#invite_container').find('button#cancel').click(function(){		
-			$('#invite_container').hide();
-			$('#chat_container').show();			
-		});
-		
-		$("body").ondragenter = DONOTHING;
-		$("body").ondragover = DONOTHING;
-		$("body").ondrop = urlDrop;
-
-		
-	});
-	
-	
-	</script>
-  </head>                                                                                     
-  <body onload="setup()">
-  <div class="wrapper">
-	<div id="chat_container">
-		<form id="send-chat-form" action="javascript:sendChat();">
-	      	<div class="form-item">
-		  		<input placeholder="Enter some freaking text already..." type="text" name="content" class="form-textfield" id="chattext" />
-				{#<br/><input type="submit" class="form-submit" value="Send" /> #}
-				<br/>
-				{#<input type="submit" class="form-submit" value="Send" />#}
-				<input type="button" style="display:none;" id="form-refresh" value="Refresh" onclick="forceUpdate()" />
-			</div>	
-	 </form>
+    var DEFAULT_REFRESH_RATE = 1000;
+    var refresh_rate = DEFAULT_REFRESH_RATE;
+    var no_change = 0;
+    function DONOTHING(){
+            e.preventDefault();
+        };
+    function urlDrop(e)
+        {
+            var urlDrop = e.dataTransfer.getData("text/plain");
+            console.log(urlDrop);
+        }
+        
+    var lastcheck = new Date();
+    var lastchange = new Date();
+    function rpc(function_name, args, callback, context) {
+      // Wrapper for jQuery's .ajax dor the sake of DRY
+      if (!args) {args = new Array();}
+      if (!callback) {var callback = function(response) {/*Default Callback Actions*/};}
+      var params = new Array(function_name);
+      for (var i = 0; i < args.length; i++) {params.push(args[i]);}
+      var body = JSON.stringify(params);
+      $.ajax({
+          url: "/rpc",
+          type: "POST",
+          data: body,
+          context: context,
+          dataType: "json",
+          success: function(response, textStatus) {callback(response, textStatus);},
+          error: function(response, textStatus) {console.log(response, textStatus);}
+      });
+    }
+    function addToChat(chatobj){
+      if($("#"+chatobj.id).length == 1){
+        return true;
+      }
+      var thischat = $("<div class='chat' id='" + chatobj.id + "'></div>");
+      var img = $("<img src='"+chatobj.thumb.gravatar_url+"'/>")
+      var strong = $("<strong class='nickname'><a href='/user/" + chatobj.author.email +"'>" + chatobj.author.nickname + "</a>:</strong>")
+      thischat.append(img).append(strong).append(chatobj.content);
+      $(thischat).insertBefore(".chat:first-child");
+    };
     
-		<div id="chats"></div>
-		<button id="send_invites">Send Invites</button>
-	</div>
-    <div id="invite_container" style="display:none;">
-		<div id="inputs">
-		<input type="text" placeholder="enter an email address...">
-		<br/><input type="text" placeholder="enter an email address...">
-		<br/><input type="text" placeholder="enter an email address...">
-		</div>
-		<button id="add">Add More</button>
-		&nbsp;<button id="send">Send Invitations</button>
-		&nbsp;<button id="cancel">Cancel</button>
-	</div>
-	
-	<div id="options" style="display:none;">
-		<span>Current Room: <span style="text-overflow:ellipsis;">{{ current_room }}</span></span>
-		&nbsp;<button id="room">Change Rooms</button>
-		{# &nbsp;<button id="send_invites">Send Invites</button> #}
-	</div>
-	<div id="change_room" style="display:none;">
-		<input id="room_name" placeholder="Enter room name..." style="width:150px;"/> 
-		<button id="continue">OK</button>&nbsp;<button id="cancel">Cancel</button>
-	</div>
-	
-  </div>  
+    function updateChat(init) {
+      this.ts = lastcheck.getTime()
+      if(init){this.ts = 0;}
+      rpc("getchat",[this_url,ts],function(d){
+        if(d.success){
+          if(d.result.length == 0){
+            no_change++; 
+            if (no_change >= 30){
+              refresh_rate = refresh_rate * 10;
+              if (refresh_rate >= 30000)
+                $('#form-refresh').show();
+              no_change = 0;
+            }
+          }else{
+            refresh_rate = DEFAULT_REFRESH_RATE;
+            console.log(d);
+            d.result.map(addToChat);
+          }
+          lastcheck = new Date();
+          window.setTimeout("updateChat(false)", refresh_rate);
+        }else{
+          console.log(d.error);
+        }
+      })
+    };
+    
+    function sendChat(form) {
+      if ($("#chattext").val()) {
+        rpc("chat", [this_url, $("#chattext").val()], function(data){
+          if(data.success){
+            addToChat(data.message);
+          }else{
+            console.log("something went wrong");
+          }
+        })
+      }
+      $("#chattext").val('');
+    }
+    function setup() {
+      updateChat(true);
+      CHATS_DIV = document.getElementById("chats");
+    }
+        
+    function forceUpdate(){
+            updateChat();
+            $('#form-refresh').hide();
+    }
+    $(function(){
+      $('button#room').click(function(){
+        $('#options').hide();
+        $('#change_room').show().find('button').click(function(){
+          $('#change_room').hide();
+          $('#options').show();
+          var room_name = $('#change_room').find('input#room_name').val();
+          if (room_name && $(this).attr('id') == 'continue')
+          {
+            $('#change_room').find('input#room_name').val('');
+          }
+        });
+      });
 
+      $('#send_invites').click(function(){
+        $('#chat_container').hide();
+        $('#invite_container').show();
+      });
+      $('#invite_container').find('button#add').click(function(){
+        $('#invite_container').find('#inputs').append('<br/><input type="text" placeholder="enter an email address...">');
+      });
+      $('#invite_container').find('button#send').click(function(){
+        var emails = Array();
+        $('#invite_container').find('input').each(function(){
+          if ($(this).val()) 
+            emails.push($(this).val());
+        });
+        $(this).val('');
+        rpc("sendmail", [this_url].concat(emails), function(data){console.log(data)})
+        $('#invite_container').hide();
+        $('#chat_container').show();
+      });
+      $('#invite_container').find('button#cancel').click(function(){		
+        $('#invite_container').hide();
+        $('#chat_container').show();			
+      });
+    });
+  </script>
   </body>
 </html>

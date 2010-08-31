@@ -9,11 +9,10 @@
 				function(request, sender, sendResponse) {
 					if ($("#chattext").val()) {
 						$.ajax({
-							url: '/getchats',
+							url: 'http://party-page.appspot.com/getchats',
 							type: "POST",
 							dataType: "html",	
-							data: {
-							content: request.content,  
+							data: {content: request.content,  
 							url: this_url},
 							success: function(x, s){console.log(x);console.log(s);}
 						});
@@ -21,6 +20,7 @@
 				},
 				{message: "I tried"}
 			);
+          
 		</script>
 	</head>
 </html>
